@@ -9,7 +9,9 @@ while ($filename = readdir($dh)) {
 		include_once($dir.'/'.$filename);
 }	
 //Connecting to DB with new Class
-$DB = new mysqli("localhost", "035848010_diplom", "31203120", "zevsariy_diplom");
+//$DB = new mysqli("localhost", "035848010_diplom", "31203120", "zevsariy_diplom");
+$DB = new mysqli("localhost", "root", "LoGiTeCH1995", "diploma_tst");
+$DB->set_charset("utf8");
 //get JSONKA from APP
 //$input = json_decode($_POST['jsonka'], true);
 

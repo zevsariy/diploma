@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta property="og:image" content=""/>
+
+	<title></title>
+
+	<meta name="keywords" content=""/>
+	<meta name="description" content=""/>
+	<meta name="viewport" content="width=device-width, initial-scale=0.5"/>
+	<link href="//fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet" type="text/css"/>
+
+	<link href="/CSS/app.css" rel="stylesheet" type="text/css"/>
+	
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	
+	<script src="/JS/jquery-ui.js"></script>
+	<link href="/CSS/jquery-ui.css" rel="stylesheet" type="text/css"/>
+	
+	<link rel="stylesheet" type="text/css" href="/CSS/print.css" media="print" />
+	
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<link href="/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+	
+	
+	<!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+</head>
+<body>
+
+
+				<nav class="navbar navbar-expand-lg navbar-light bg-light">
+				  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				  </button>
+
+				  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav mr-auto">
+					  <li class="nav-item active">
+						<a class="nav-link" href="/index.php?module=plans&action=view"><< Назад</a>
+					  </li>
+					  <li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						  Файл
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						  <a class="dropdown-item" href="#" id="ExportToPrinter" onclick="print_doc()">Экспортировать</a>
+						  
+						  <div class="dropdown-divider"></div>
+						  
+						  <a class="dropdown-item" href="#" id="SaveChanges">Сохранить</a>
+						  
+						  <div class="dropdown-divider"></div>
+
+						</div>
+					  </li>
+					  <li class="nav-item"><a class="nav-link" href="#" data-toggle="modal" data-target="#fontSizeModal">Шрифт</a></li>
+					  <li class="nav-item"><a class="nav-link" href="#" id="HideIcons">Скрыть иконки</a></li>	
+					</ul>
+					<img src="/CSS/images/polylogo-black.png" class="polylogo">
+				  </div>
+				</nav>
+
+
+<!-- Modal -->
+<div class="modal fade" id="fontSizeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Настройка шрифтов</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">	  
+
+		<a class="dropdown-item" id="increase">Увеличить</a>
+
+		<a class="dropdown-item" id="decrease">Уменьшить</a>
+
+		<a class="dropdown-item" id="reset">Сброс</a>
+
+      </div>
+    </div>
+  </div>
+</div>
+				
+				
+
+	<div class="container_main">
+		<div class="printer-header">
+			<h2 id="planPrintedName">Тестовый</h2>
+		</div>
+		<div id="multi">
+			<div class="overlay">
+				<div class="hours" draggable="false">
+					<div class="tile__name">Ед.</div>
+					<div class="tile__list__blocked">
+					</div>
+				</div>
+
+			</div>
+			
+			<div class="statistic">
+				<div style="width: 6%;">
+				</div>
+			</div>
+			
+				<div class="container-fluid allStatistics">
+					  <div class="row">
+						<div class="col">
+						  <ul class='list-group list-group-flush SumStatistics1'></ul>
+						</div>
+						<div class="col">
+						  <ul class='list-group list-group-flush SumStatistics2'></ul>
+						</div>
+						<div class="col">
+						  <ul class='list-group list-group-flush SumStatistics3'></ul>
+						</div>
+						<div class="col">
+						  <ul class='list-group list-group-flush SumStatistics4'></ul>
+						</div>
+						<div class="col"></div>
+						<div class="col"></div>
+						<div class="col"></div>
+					  </div>
+				</div>
+			
+		</div>
+	</div>
+	
+	
+	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editorForm">
+  Launch demo modal
+</button>
+
+	<!-- Modal -->
+	<div class="modal fade" id="editorForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLabel">Редактирование дисциплины</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			  <span aria-hidden="true">&times;</span>
+			</button>
+		  </div>
+		  <div class="modal-body">
+			<div class="alert alert-danger" role="alert" id="ealert"></div>	  
+			
+
+<div class="container">
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#editorMainTab">Основные</a></li>
+  <li><a data-toggle="tab" href="#editorTargetTab">Цели</a></li>
+  <li><a data-toggle="tab" href="#editorJobTab">Задачи</a></li>
+  <li><a data-toggle="tab" href="#editorCompetencionsTab">Компетенции</a></li>
+</ul>
+
+<div class="tab-content">
+  <div id="editorMainTab" class="tab-pane fade in active">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col">
+					<div class="form-group">
+						  <label for="ename">Название:</label>
+						  <input type="text" name="title" id="ename" class="form-control"><br>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div class="form-group">
+						  <label for="ehours">Часов суммарно:</label>
+						  <input type="text" name="title" id="ehours" class="form-control" disabled><br>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div class="form-group">
+						<label for="elections">Лекции:</label>
+						<input type="number" name="lek" id="elections" class="form-control" width="20px"><br>
+					</div>
+				</div>
+				<div class="col">
+					<div class="form-group">
+						<label for="eseminars">Семинары:</label>
+						<input type="number" name="lek" id="eseminars" class="form-control" width="20px"><br>
+					</div>
+				</div>
+				<div class="col">
+					<div class="form-group">
+						<label for="elabs">Лабораторные часы:</label>
+						<input type="number" name="labs" id="elabs" class="form-control" width="20px"><br>
+					</div>
+				</div>
+				<div class="col">
+					<div class="form-group">
+						<label for="eselfwork">Самостоятельные часы:</label>
+						<input type="number" name="sam" id="eselfwork" class="form-control" width="20px"><br>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<div class="col">
+					<div class="form-group">
+						<label for="epart">Часть ОП:</label>
+						<select size="1" id="epart" class="form-control">
+						</select>
+					</div>
+				</div>
+				<div class="col">
+					<div class="form-group">
+						<label for="etype">Тип:</label>
+						<select size="1" id="etype" class="form-control">
+							<option value="1" selected>Зачет</option>
+							<option value="2">Экзамен</option>
+							<option value="3">Элективная</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div class="form-group form-check">
+						<label class="form-check-label"><input class="form-check-input" type="checkbox" id="ekurs_work">Курсовая работа</label>
+					</div>
+				</div>
+				<div class="col">
+					<div class="form-group form-check">
+						<label class="form-check-label"><input class="form-check-input" type="checkbox" id="ekurs_project">Курсовой проект</label>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div class="form-group form-check">
+						<label class="form-check-label">Цвет фона<input class="form-check-input" style="margin-left:20px;" type="color" id="ebgcolor"></label>
+					</div>
+				</div>
+				<div class="col">
+					<div class="form-group form-check">
+						<label class="form-check-label">Цвет текста<input class="form-check-input" style="margin-left:20px;" type="color" id="etextcolor"></label>
+					</div>
+				</div>
+			</div>
+		</div>		
+  </div>
+  <div id="editorTargetTab" class="tab-pane fade">
+	<h3>Menu 1</h3>
+	<p>Some content in menu 1.</p>
+  </div>
+  <div id="editorJobTab" class="tab-pane fade">
+	<h3>Menu 2</h3>
+	<p>Some content in menu 2.</p>
+  </div>
+  <div id="editorCompetencionsTab" class="tab-pane fade">
+	<h3>Menu 2</h3>
+	<p>Some content in menu 2.</p>
+  </div>
+</div>
+
+</div>		
+
+							
+		  </div>
+		  <div class="modal-footer">
+			<button class="btn btn-primary name="saver" id="edit_saver">Сохранить</button>
+			<button class="btn btn-warning name="saver" id="deleteSubject">Удалить</button>
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+
+	<script>
+		{{{js_editor_subject001}}}
+	</script>
+	
+  <script>
+  $.fn.zoomtext = function (c) {
+     var a = {
+         min: 8, //минимальный размер шрифта  - 0 без ограничения
+         max: 32, //максимальный размер шрифта - 0 без ограничения
+         increment: "+=1", //приращение или размер например "24px"
+         recovery: !1, //вернуть исходный размер
+         skip: !1, //нераспространять параметры шрифта на этих потомков  - селектор потомков "*"
+         conserve: !0 //сохранять установленное значение
+     }, a = $.extend(a, c);
+     c = $("*", this).add(this);
+     var sel = this.selector;
+     c.each(function (a, c) {
+         var b = $(this).css("fontSize");
+         !$(this).data("fontSize") && $(this).data("fontSize", b).css("fontSize", b)
+     });
+     a.skip && (c = c.not($(a.skip, this)));
+     var old = JSON.parse(localStorage.getItem("elementsFont")) || {};
+     return c.each(function (c, d) {
+         var b = $(this).css("fontSize"),
+             b = $("<div/>", {
+                 css: {
+                     fontSize: b
+                 }
+             }).css("fontSize", a.increment).css("fontSize");
+         a.max && parseFloat(b) > a.max && (b = a.max);
+         a.min && parseFloat(b) < a.min && (b = a.min);
+         a.recovery && (b = $(this).data("fontSize"));
+         a.conserve && (old[sel] = {
+             fontSize: b,
+             skip: a.skip
+         });
+         localStorage.setItem("elementsFont", JSON.stringify(old));
+         $(this).css({
+             fontSize: b
+         })
+     })
+ };
+ $(function () {
+     var old = JSON.parse(localStorage.getItem("elementsFont")) || {};
+     Object.keys(old).forEach(function (key) {
+         $(key).zoomtext({
+             increment: old[key].fontSize,
+             skip: old[key].skip,
+             conserve: false
+         });
+     });
+
+     $('#increase').click(function (event) {
+         event.preventDefault();
+         $('.subject_name').zoomtext({
+             increment: "+=1"
+         });
+     });
+
+     $('#reset').click(function (event) {
+         event.preventDefault();
+         $('.subject_name').zoomtext({
+             recovery: true
+         });
+     });
+
+     $('#decrease').click(function (event) {
+         event.preventDefault();
+         $('.subject_name').zoomtext({
+             increment: "-=3"
+         });
+     });
+     $('#font24').click(function (event) {
+         event.preventDefault();
+         $('.subject_name').zoomtext({
+             increment: "24px"
+         });
+     });
+     $('#increase_мах').click(function (event) {
+         event.preventDefault()
+         $('.subject_name').zoomtext({
+             increment: "+=5",
+             max: 0,
+             skip: '*'
+         });
+     });
+ })
+  </script>
+
+
+		
+		
+	<script src="/JS/Sortable.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+	<script src="/JS/ng-sortable.js"></script>
+	<script src="/JS/app.js"></script>
+	
+</body>
+</html>

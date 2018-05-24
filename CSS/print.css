@@ -1,0 +1,27 @@
+.pos-f-t {
+	display: none;
+}
+
+
+.hours_subject {
+	float: left;
+}
+
+.hours_subject p{
+	padding: 1px;
+	font-size: 5px;
+}
+
+.subject_name {
+	margin-top: 0px;
+    margin-bottom: 0px;
+	text-align: left;
+	font-size: 5px;
+}
+.hours {
+	width: 3%;
+}
+
+.printer-header {
+	display: block;
+}

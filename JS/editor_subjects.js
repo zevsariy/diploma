@@ -49,6 +49,7 @@
 				
 				console.log("add_new_item("+value['id']+", "+ value['name']+", "+ value['semester']+", "+ value['zuch_ed']+", "+ value['type']+", "+ value['lections']+", "+ value['seminars']+", "+ value['labs']+", "+ value['selfwork']+", "+ value['part']+", "+ value['kurs_project']+", "+ value['kurs_work']+", "+ value['bg_color']+", "+ value['text_color']+");");
 			}); 
+			StartStateChanges = CurrentState();
 		});
 	}
 	FillPlanSubjects();
@@ -202,6 +203,24 @@
 				$(editable_item).data("kurs_work", 1);
 			else
 				$(editable_item).data("kurs_work", 0);
+			
+			//targets list
+			var targets = [];
+			$('.target_name').each(function( index )
+            {
+				targets.push($(this).val());
+			});
+			
+			$(editable_item).data("targets", targets);
+			
+			
+			var tasks = [];
+			$('.task_name').each(function( index )
+            {
+				tasks.push($(this).val());
+			});
+			
+			$(editable_item).data("tasks", tasks);
 			
 			//$("#dialog").dialog( "close" );
 			$("#editorForm").modal("hide");
@@ -468,6 +487,15 @@
 				$("#ekurs_work").prop('checked', false);
 			
 			editable_item = $(this);
+			
+			
+			CleanTargets();
+			var targets = $(this).data("targets");
+			$(targets).each(function( index ) 
+			{
+				AddTarget($(this).val());
+			});
+			
 		});
 	}
 
@@ -554,8 +582,6 @@
 				FillPlanSubjects();
 				console.log(msg);
 			}
-		}).done(function() {
-		  StartStateChanges = CurrentState();
 		});
 	}
 	
@@ -627,3 +653,33 @@ function GetStartState() {
 }
 
 setTimeout(GetStartState, 1000);
+
+//Editor form targets
+$("#add_target").click(function (e) {
+	$(".targets").append('<div class="target"><label for="etarget_name">Название:</label><input type="text" name="etarget_name" class="form-control target_name"><button type="button" class="btn btn-danger" onclick="return delete_target(this);">Удалить</button><br></div>');
+});
+
+function AddTarget(value) {
+	$(".targets").append('<div class="target"><label for="etarget_name">Название:</label><input type="text" name="etarget_name" class="form-control target_name" value="'+value+'"><button type="button" class="btn btn-danger" onclick="return delete_target(this);">Удалить</button><br></div>');
+};
+
+function CleanTargets() {
+	$(".targets").html('');
+};
+
+
+function delete_target(element) {
+	console.log($(element));
+		$(element).parent().remove();
+};
+
+
+//Editor form tasks
+$("#add_task").click(function (e) {
+	$(".tasks").append('<div class="task"><label for="etarget_name">Название:</label><input type="text" name="etask_name" class="form-control task_name"><button type="button" class="btn btn-danger" onclick="return delete_task(this);">Удалить</button><br></div>');
+});
+
+function delete_task(element) {
+	console.log($(element));
+		$(element).parent().remove();
+};

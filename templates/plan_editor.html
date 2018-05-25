@@ -10,11 +10,11 @@
 	<meta name="keywords" content=""/>
 	<meta name="description" content=""/>
 	<meta name="viewport" content="width=device-width, initial-scale=0.5"/>
-	<link href="//fonts.googleapis.com/css?family=Roboto:300" rel="stylesheet" type="text/css"/>
+	<link href="/CSS/google_fonts/2.css" rel="stylesheet" type="text/css"/>
 
 	<link href="/CSS/app.css" rel="stylesheet" type="text/css"/>
 	
-	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="/JS/jquery-3.3.1.min.js"></script>
 	
 	<script src="/JS/jquery-ui.js"></script>
 	<link href="/CSS/jquery-ui.css" rel="stylesheet" type="text/css"/>
@@ -22,13 +22,13 @@
 	<link rel="stylesheet" type="text/css" href="/CSS/print.css" media="print" />
 	
 	
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="/CSS/bootstrap.min.css">
+	<script src="/JS/bootstrap.min.js"></script>
 	<link href="/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
 	
 	
 	<!-- Font Awesome CSS -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+    <link rel="stylesheet" href="/CSS/awesamefont.css">
 </head>
 <body>
 
@@ -139,145 +139,160 @@
 </button>
 
 	<!-- Modal -->
-	<div class="modal fade" id="editorForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	  <div class="modal-dialog modal-lg" role="document">
+<div class="modal fade" id="editorForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
-		  <div class="modal-header">
+			<div class="modal-header">
 			<h5 class="modal-title" id="exampleModalLabel">Редактирование дисциплины</h5>
 			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 			  <span aria-hidden="true">&times;</span>
 			</button>
-		  </div>
-		  <div class="modal-body">
-			<div class="alert alert-danger" role="alert" id="ealert"></div>	  
-			
+			</div>
+			<div class="modal-body">
+				<div class="alert alert-danger" role="alert" id="ealert"></div>	  
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col">
+							<h2>Основные</h2>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<div class="form-group">
+								  <label for="ename">Название:</label>
+								  <input type="text" name="title" id="ename" class="form-control"><br>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<div class="form-group">
+								  <label for="ehours">Часов суммарно:</label>
+								  <input type="text" name="title" id="ehours" class="form-control" disabled><br>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<div class="form-group">
+								<label for="elections">Лекции:</label>
+								<input type="number" name="lek" id="elections" class="form-control" width="20px"><br>
+							</div>
+						</div>
+						<div class="col">
+							<div class="form-group">
+								<label for="eseminars">Семинары:</label>
+								<input type="number" name="lek" id="eseminars" class="form-control" width="20px"><br>
+							</div>
+						</div>
+						<div class="col">
+							<div class="form-group">
+								<label for="elabs">Лабораторные часы:</label>
+								<input type="number" name="labs" id="elabs" class="form-control" width="20px"><br>
+							</div>
+						</div>
+						<div class="col">
+							<div class="form-group">
+								<label for="eselfwork">Самостоятельные часы:</label>
+								<input type="number" name="sam" id="eselfwork" class="form-control" width="20px"><br>
+							</div>
+						</div>
+					</div>
 
-<div class="container">
-<ul class="nav nav-tabs">
-  <li class="active"><a data-toggle="tab" href="#editorMainTab">Основные</a></li>
-  <li><a data-toggle="tab" href="#editorTargetTab">Цели</a></li>
-  <li><a data-toggle="tab" href="#editorJobTab">Задачи</a></li>
-  <li><a data-toggle="tab" href="#editorCompetencionsTab">Компетенции</a></li>
-</ul>
-
-<div class="tab-content">
-  <div id="editorMainTab" class="tab-pane fade in active">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col">
-					<div class="form-group">
-						  <label for="ename">Название:</label>
-						  <input type="text" name="title" id="ename" class="form-control"><br>
+					<div class="row">
+						<div class="col">
+							<div class="form-group">
+								<label for="epart">Часть ОП:</label>
+								<select size="1" id="epart" class="form-control">
+								</select>
+							</div>
+						</div>
+						<div class="col">
+							<div class="form-group">
+								<label for="etype">Тип:</label>
+								<select size="1" id="etype" class="form-control">
+									<option value="1" selected>Зачет</option>
+									<option value="2">Экзамен</option>
+									<option value="3">Элективная</option>
+								</select>
+							</div>
+						</div>
 					</div>
+					<div class="row">
+						<div class="col">
+							<div class="form-group form-check">
+								<label class="form-check-label"><input class="form-check-input" type="checkbox" id="ekurs_work">Курсовая работа</label>
+							</div>
+						</div>
+						<div class="col">
+							<div class="form-group form-check">
+								<label class="form-check-label"><input class="form-check-input" type="checkbox" id="ekurs_project">Курсовой проект</label>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col">
+							<div class="form-group form-check">
+								<label class="form-check-label">Цвет фона<input class="form-check-input" style="margin-left:20px;" type="color" id="ebgcolor"></label>
+							</div>
+						</div>
+						<div class="col">
+							<div class="form-group form-check">
+								<label class="form-check-label">Цвет текста<input class="form-check-input" style="margin-left:20px;" type="color" id="etextcolor"></label>
+							</div>
+						</div>
+					</div>			
+				</div>
+				
+				
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col">
+							<h2>Цели</h2>
+						</div>
+					</div>	
+					<div class="row">
+						<div class="col">
+							<div class="form-group targets">
+								<div class="target">
+									  <label for="etarget_name">Название:</label>
+									  <input type="text" name="etarget_name" class="form-control target_name"><button type="button" class="btn btn-danger" onclick="return delete_target(this);">Удалить</button><br>
+								</div>
+							</div>
+						</div>
+					</div>	
+					<button type="button" class="btn btn-primary" id="add_target">Добавить</button>
+				</div>
+				
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col">
+							<h2>Задачи</h2>
+						</div>
+					</div>	
+					<div class="row">
+						<div class="col">
+							<div class="form-group tasks">
+								<div class="task">
+									  <label for="etarget_name">Название:</label>
+									  <input type="text" name="etask_name" class="form-control task_name"><button type="button" class="btn btn-danger" onclick="return delete_task(this);">Удалить</button><br>
+								</div>
+							</div>
+						</div>
+					</div>	
+					<button type="button" class="btn btn-primary" id="add_task">Добавить</button>
+				</div>
+				
+				
+				<div class="modal-footer">
+					<button class="btn btn-primary name="saver" id="edit_saver">Сохранить</button>
+					<button class="btn btn-warning name="saver" id="deleteSubject">Удалить</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col">
-					<div class="form-group">
-						  <label for="ehours">Часов суммарно:</label>
-						  <input type="text" name="title" id="ehours" class="form-control" disabled><br>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col">
-					<div class="form-group">
-						<label for="elections">Лекции:</label>
-						<input type="number" name="lek" id="elections" class="form-control" width="20px"><br>
-					</div>
-				</div>
-				<div class="col">
-					<div class="form-group">
-						<label for="eseminars">Семинары:</label>
-						<input type="number" name="lek" id="eseminars" class="form-control" width="20px"><br>
-					</div>
-				</div>
-				<div class="col">
-					<div class="form-group">
-						<label for="elabs">Лабораторные часы:</label>
-						<input type="number" name="labs" id="elabs" class="form-control" width="20px"><br>
-					</div>
-				</div>
-				<div class="col">
-					<div class="form-group">
-						<label for="eselfwork">Самостоятельные часы:</label>
-						<input type="number" name="sam" id="eselfwork" class="form-control" width="20px"><br>
-					</div>
-				</div>
-			</div>
-			
-			<div class="row">
-				<div class="col">
-					<div class="form-group">
-						<label for="epart">Часть ОП:</label>
-						<select size="1" id="epart" class="form-control">
-						</select>
-					</div>
-				</div>
-				<div class="col">
-					<div class="form-group">
-						<label for="etype">Тип:</label>
-						<select size="1" id="etype" class="form-control">
-							<option value="1" selected>Зачет</option>
-							<option value="2">Экзамен</option>
-							<option value="3">Элективная</option>
-						</select>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col">
-					<div class="form-group form-check">
-						<label class="form-check-label"><input class="form-check-input" type="checkbox" id="ekurs_work">Курсовая работа</label>
-					</div>
-				</div>
-				<div class="col">
-					<div class="form-group form-check">
-						<label class="form-check-label"><input class="form-check-input" type="checkbox" id="ekurs_project">Курсовой проект</label>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col">
-					<div class="form-group form-check">
-						<label class="form-check-label">Цвет фона<input class="form-check-input" style="margin-left:20px;" type="color" id="ebgcolor"></label>
-					</div>
-				</div>
-				<div class="col">
-					<div class="form-group form-check">
-						<label class="form-check-label">Цвет текста<input class="form-check-input" style="margin-left:20px;" type="color" id="etextcolor"></label>
-					</div>
-				</div>
-			</div>
-		</div>		
-  </div>
-  <div id="editorTargetTab" class="tab-pane fade">
-	<h3>Menu 1</h3>
-	<p>Some content in menu 1.</p>
-  </div>
-  <div id="editorJobTab" class="tab-pane fade">
-	<h3>Menu 2</h3>
-	<p>Some content in menu 2.</p>
-  </div>
-  <div id="editorCompetencionsTab" class="tab-pane fade">
-	<h3>Menu 2</h3>
-	<p>Some content in menu 2.</p>
-  </div>
-</div>
-
-</div>		
-
-							
-		  </div>
-		  <div class="modal-footer">
-			<button class="btn btn-primary name="saver" id="edit_saver">Сохранить</button>
-			<button class="btn btn-warning name="saver" id="deleteSubject">Удалить</button>
-			<button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
-		  </div>
 		</div>
-	  </div>
 	</div>
-
+</div>
 	<script>
 		{{{js_editor_subject001}}}
 	</script>
@@ -371,7 +386,6 @@
 		
 		
 	<script src="/JS/Sortable.js"></script>
-	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
 	<script src="/JS/ng-sortable.js"></script>
 	<script src="/JS/app.js"></script>
 	

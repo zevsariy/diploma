@@ -4,14 +4,62 @@
 	var editable_item;
 	
 	//тут часть кода для добавления предметов из БД
+	
+	
+	function GetURLParameter(sParam)
+	{
+		var sPageURL = window.location.search.substring(1);
+		var sURLVariables = sPageURL.split('&');
+		for (var i = 0; i < sURLVariables.length; i++)
+		{
+			var sParameterName = sURLVariables[i].split('=');
+			if (sParameterName[0] == sParam)
+			{
+				return sParameterName[1];
+			}
+		}
+	}
+
+	function FillPlanSubjects()
+	{
+		$("div.layer").each(function( index ) 
+		{ 
+			
+			$(this).find(".tile__list").html("");
+			console.log($(this).find(".tile__list").text());
+		});
+			
+		var plan_id=GetURLParameter('id');
+		$.ajax({
+			url: "/api/index.php?module=subjects&action=getalljson&id="+plan_id,
+			method: "POST",
+			type: "POST",
+			data: {},
+			error: function(errMsg) {
+			console.log(errMsg);
+			}
+		}).done(function(dataDB) {
+			var subjectsDB=dataDB;
+			$.each(subjectsDB['data'], function(index, value) {
+				console.log(value);
+				
+			if(value['bg_color'] == '') value['bg_color']="#FFF";
+			if(value['text_color'] == '') value['text_color']="#000"; 
+			add_new_item(value['id'], value['name'], value['semester'], value['zuch_ed'], value['type'], value['lections'], value['seminars'], value['labs'], value['selfwork'], value['part'], value['kurs_project'], value['kurs_work'], value['bg_color'],value['text_color']);
+				
+				console.log("add_new_item("+value['id']+", "+ value['name']+", "+ value['semester']+", "+ value['zuch_ed']+", "+ value['type']+", "+ value['lections']+", "+ value['seminars']+", "+ value['labs']+", "+ value['selfwork']+", "+ value['part']+", "+ value['kurs_project']+", "+ value['kurs_work']+", "+ value['bg_color']+", "+ value['text_color']+");");
+			}); 
+		});
+	}
+	FillPlanSubjects();
+
+	
+	
 	var plan={{{js_editor_subject002}}}
 	
 	add_semesters(plan['semesters']);
 	add_hours(plan['hours']);
 	var StartStateChanges = 0;
-	
-	{{{js_editor_subject_items}}}
-	
 	
 	function print_doc(){
 		window.print();
@@ -450,7 +498,7 @@
 	function SaveChanges() {
 		var Subjects=[];
 		$( ".subject" ).each(function( index ) {
-			var test={'name':'test', 'size':'1'};
+			var test={'name':'test', 'zuch_ed':'1'};
 			
 			test['id']=$(this).data('id');
 			test['name']=$(this).data('name');
@@ -493,12 +541,18 @@
 		console.log(jsonka['id']);
 		
 		$.ajax({
-			url: 'api/index.php',
+			url: 'api/index.php?module=subjects&action=save&id='+$.urlParam('id'),
 			method: "POST",
 			type: "POST",
 			data: jsonka,
-			error: function(errMsg) {
-			console.log(errMsg);
+			error: function(errMsg) 
+			{
+				console.log(errMsg);
+			},
+			success: function(msg)
+			{
+				FillPlanSubjects();
+				console.log(msg);
 			}
 		}).done(function() {
 		  StartStateChanges = CurrentState();

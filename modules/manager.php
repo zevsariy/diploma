@@ -70,10 +70,10 @@ class Manager
 				$op_parts_finished.="}";
 				$op_parts_colors.="}"; 
 				
-				$items=PlanEditor::GetSubjects(self::$id);
+				//$items=PlanEditor::GetSubjects(self::$id);
 				
 				self::$content=str_replace("{{{js_editor_subject002}}}", $PlanData, self::$content);
-				self::$content=str_replace("{{{js_editor_subject_items}}}", $items, self::$content);
+				//self::$content=str_replace("{{{js_editor_subject_items}}}", $items, self::$content);
 				self::$content=str_replace("{{{js_editor_subject003}}}", $op_parts_finished, self::$content);
 				self::$content=str_replace("{{{js_editor_subject004}}}", $op_parts_colors, self::$content);
 			}
@@ -103,8 +103,7 @@ class Manager
 				$op_parts_finished.="}";
 				$op_parts_colors.="}";
 				
-				$script.=PlanEditor::GetSubjects();
-				
+				//$script.=PlanEditor::GetSubjects();
 				self::$content=str_replace("{{{js_editor_subject002}}}", $script, self::$content);
 				self::$content=str_replace("{{{js_editor_subject003}}}", $op_parts_finished, self::$content);
 				self::$content=str_replace("{{{js_editor_subject004}}}", $op_parts_colors, self::$content);

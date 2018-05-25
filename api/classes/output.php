@@ -3,62 +3,51 @@ class Output
 {
 	public static $errors = array();
 	public static $data = array();
+	public static $module;
+	public static $action;
+	public static $id;
 	
 	public static function Clean($string) {
 		return iconv('utf-8', 'utf-8//IGNORE', $string); 
 	}
-
+	
+	public static function Decode()
+	{
+		 // $input = json_decode($_POST['jsonka'], true);
+		 // if($input != '')
+		 // {
+			 // self::$module = $input['module'];
+			 // self::$action = $input['action']; 
+		 // }
+		self::$module = $_GET['module'];
+		self::$action = $_GET['action']; 
+		self::$id = $_GET['id'];
+	}
+	
 	public static function View()
 	{
-		global $_POST, $input;
-		$input = json_decode($_POST['jsonka'], true);
 		$JSON = array(
 		"errors" => self::$errors,
 		"data" => self::$data
 		);
-		
-		
-		//$error_flag = json_last_error();
-		
-		/*if($error_flag != JSON_ERROR_NONE)
+		echo json_encode($JSON);
+	}
+	
+
+	
+	public static function Apply()
+	{
+		#Подготавливаю параметры для дальнейшей простоты работы
+		$module = self::$module;
+		$action = self::$action;
+		#Выбор модуля с последующим выбором события
+		if($module == 'subjects')
 		{
-			self::$data = array();
-			self::$errors = array();
+			if($action == 'save') Subjects::Save(); #Авторизация в приложении
+			else if($action == 'getalljson') Subjects::GetAllJson($_GET['id']); #need Выход из учетной записи
+			//else Errors::Get(2);
 		}
 		
-		switch ($error_flag) {
-			case JSON_ERROR_NONE:
-				echo '';
-			break;
-			case JSON_ERROR_DEPTH:
-				Errors::Get(2001);
-			break;
-			case JSON_ERROR_STATE_MISMATCH:
-				Errors::Get(2002);
-			break;
-			case JSON_ERROR_CTRL_CHAR:
-				Errors::Get(2003);
-			break;
-			case JSON_ERROR_SYNTAX:
-				Errors::Get(2004);
-			break;
-			case JSON_ERROR_UTF8:
-				Errors::Get(2005);
-			break;
-			default:
-				Errors::Get(2006);
-			break;
-		}
-		
-		if($error_flag != JSON_ERROR_NONE)
-		{
-			$JSON = array(
-			"errors" => self::$errors,
-			"data" => self::$data
-			);
-			echo json_encode($JSON);
-		}
-		*/
 	}
 }
 ?>

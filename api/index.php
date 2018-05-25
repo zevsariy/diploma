@@ -16,11 +16,8 @@ $DB->set_charset("utf8");
 //$input = json_decode($_POST['jsonka'], true);
 
 //Create API main class
-//API::Decode();
+Output::Decode();
 //Do task by Module that is getted
-//API::Apply(); 
-
-Subjects::Save();
-//Output prepared JSON
+Output::Apply(); 
 Output::View();
 ?>

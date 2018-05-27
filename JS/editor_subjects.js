@@ -1,5 +1,6 @@
 	//переменная для тестов
-	var test;
+	var test1;
+	var test2;
 	//переменная для хранения редактируемого предмета
 	var editable_item;
 	
@@ -45,9 +46,7 @@
 				
 			if(value['bg_color'] == '') value['bg_color']="#FFF";
 			if(value['text_color'] == '') value['text_color']="#000"; 
-			add_new_item(value['id'], value['name'], value['semester'], value['zuch_ed'], value['type'], value['lections'], value['seminars'], value['labs'], value['selfwork'], value['part'], value['kurs_project'], value['kurs_work'], value['bg_color'],value['text_color']);
-				
-				console.log("add_new_item("+value['id']+", "+ value['name']+", "+ value['semester']+", "+ value['zuch_ed']+", "+ value['type']+", "+ value['lections']+", "+ value['seminars']+", "+ value['labs']+", "+ value['selfwork']+", "+ value['part']+", "+ value['kurs_project']+", "+ value['kurs_work']+", "+ value['bg_color']+", "+ value['text_color']+");");
+			add_new_item(value['id'], value['name'], value['semester'], value['zuch_ed'], value['type'], value['lections'], value['seminars'], value['labs'], value['selfwork'], value['part'], value['kurs_project'], value['kurs_work'], value['bg_color'],value['text_color'],value['targets'],value['tasks'],value['competences'],value['themes'],value['bibliographys'],value['softwares']);
 			}); 
 			StartStateChanges = CurrentState();
 		});
@@ -66,12 +65,29 @@
 		window.print();
 	}
 
+	
+	function prepareDataArray(dataArray)
+	{
+		console.log("splited!!!");
+		dataArray = dataArray.split('"').join("");
+		dataArray = dataArray.split('[').join("");
+		dataArray = dataArray.split(']').join("");
+		dataArray = dataArray.split(',');
+		console.log(dataArray);
+		return dataArray;
+	}
 
 	//добавление нового элемента согласно параметрам
 	
 	//<div data-semester="0" data-size="5" data-name="Русский язык" data-id="1" data-type="1" data-lections="1" data-seminars="2" data-labs="3" data-selfwork="4" data-part="1" data-kurs_project="1" data-kurs_work="1" class="subject isResizable ui-resizable" style="height: 160px; background-color: rgb(220, 220, 220); color: rgb(0, 0, 0);" draggable="false"><p class="subject_name">Русский язык</p><div class="hours_subject"><p class="dlec">1</p><p class="dsem">2</p><p class="dlabs">3</p><p class="dself">4</p><p class="dkproject">1</p><p class="dkwork">1</p></div><div class="ui-resizable-handle ui-resizable-s" style="z-index: 90;"></div></div>
-	function add_new_item(id, name, semester, zuch_ed, type, lections, seminars, labs, selfwork, part, kurs_project, kurs_work, bg_color, text_color)
+	function add_new_item(id, name, semester, zuch_ed, type, lections, seminars, labs, selfwork, part, kurs_project, kurs_work, bg_color, text_color, targets, tasks, competences, themes, bibliographys, softwares)
 	{
+		
+		
+		
+		
+		
+		
 		//Семестр в бд хранится нормально, а добавляем мы предметы в массив, потому -1 (старт с 0 )
 		semester-=1;
 		
@@ -90,9 +106,54 @@
 		hourses +='<p class="dkwork" title="Курсовая работа">КР</p>';
 		hourses +='<p class="dkproject" title="Курсовой проект">КП</p>';
 		
+		if(targets!='') targets= JSON.parse(targets);
+		if(tasks!='') tasks= JSON.parse(tasks);
+		if(competences!='') competences= JSON.parse(competences);
+		if(themes!='') themes = JSON.parse(themes);
+		if(bibliographys!='') bibliographys = JSON.parse(bibliographys);
+		if(softwares!='') softwares = JSON.parse(softwares);
 		
-		var new_subject = $($("div.layer")[semester]).find(".tile__list").append('<div data-semester="'+semester+'" data-zuch_ed="'+zuch_ed+'" data-name="'+name+'" data-id="'+id+'" data-type="'+type+'" data-lections="'+lections+'" data-seminars="'+seminars+'" data-labs="'+labs+'" data-selfwork="'+selfwork+'" data-part="'+part+'" data-kurs_project="'+kurs_project+'" data-kurs_work="'+kurs_work+'" data-bg_color="'+bg_color+'" data-text_color="'+text_color+'" data-delete="0" class="subject isResizable" style="height:'+(32*zuch_ed)+'px;" draggable="false" class=""><p class="subject_name">'+name+'</p><div class="hours_subject">'+hourses+'</div></div>');
-		test=new_subject;
+		var new_subject = document.createElement('div');
+            new_subject.className = 'subject isResizable';
+            new_subject.innerHTML = '<p class="subject_name"></p><div class="hours_subject"></div>';
+		
+		//var new_subject = document.createElement("<div class='subject isResizable' draggable='false'><p class='subject_name'></p><div class='hours_subject'></div></div>");
+		$(new_subject).data('id', id);
+		$(new_subject).data('name', name);
+		$(new_subject).data('semester', semester);
+		$(new_subject).data('zuch_ed', zuch_ed);
+		$(new_subject).data('type', type);
+		$(new_subject).data('lections', lections);
+		$(new_subject).data('seminars', seminars);
+		$(new_subject).data('labs', labs);
+		$(new_subject).data('selfwork', selfwork);
+		$(new_subject).data('part', part);
+		$(new_subject).data('kurs_project', kurs_project);
+		$(new_subject).data('kurs_work', kurs_work);
+		$(new_subject).data('bg_color', bg_color);
+		$(new_subject).data('text_color', text_color);
+		$(new_subject).data('targets', targets);
+		$(new_subject).data('tasks', tasks);
+		
+		$(new_subject).data('competences', competences);
+		$(new_subject).data('themes', themes);
+		$(new_subject).data('bibliographys', bibliographys);
+		$(new_subject).data('softwares', softwares);
+		
+		$(new_subject).data('test', [{'name':'sergey', 'year': 2018, 'gost':'321423'},{'name':'yuri', 'year': 1995, 'gost':'fdsfsdsd'}]);
+		
+		$(new_subject).find(".hours_subject").html(hourses);
+		
+		
+		$(new_subject).attr('style', 'height:'+(32*zuch_ed)+'px;');
+		
+		$($("div.layer")[semester]).find(".tile__list").append(new_subject);
+		//var new_subject = $($("div.layer")[semester]).find(".tile__list").append('<div data-semester="'+semester+'" data-zuch_ed="'+zuch_ed+'" data-name="'+name+'" data-id="'+id+'" data-type="'+type+'" data-lections="'+lections+'" data-seminars="'+seminars+'" data-labs="'+labs+'" data-selfwork="'+selfwork+'" data-part="'+part+'" data-kurs_project="'+kurs_project+'" data-kurs_work="'+kurs_work+'" data-bg_color="'+bg_color+'" data-text_color="'+text_color+'" data-tasks="'+tasks+'" data-targets="'+targets+'" data-delete="0" class="subject isResizable" style="height:'+(32*zuch_ed)+'px;" draggable="false" class=""><p class="subject_name">'+name+'</p><div class="hours_subject">'+hourses+'</div></div>');
+
+		
+		test1 = tasks;
+		test2 = new_subject;
+		console.log($(new_subject).data());
 		resizerka();
 		editerka();
 	}
@@ -153,7 +214,7 @@
 	 
 	$(".ostatok").click(function() {
 		var SemesterParent = $(this).parent().parent().find('.tile__name').text();
-		add_new_item('', "Новая дисциплина", SemesterParent, 2, 1, 0, 0, 0, 0, 1, 0, 0, "#ffffff", "#000000");
+		add_new_item('', "Новая дисциплина", SemesterParent, 2, 1, 0, 0, 0, 0, 1, 0, 0, "#ffffff", "#000000", "", "", "", "", "", "");
 		
 		// var new_subject = $(this).parent().find(".tile__list").append('<div data-semester="1" data-size="1" data-name="Новая дисциплина" data-id="" class="subject isResizable hsize1" style="" draggable="false" class=""><h3 class="subject_name">Новая дисциплина</h3></div>');
 		resizerka(); 
@@ -210,19 +271,89 @@
             {
 				targets.push($(this).val());
 			});
-			
+			CleanTargets();
 			$(editable_item).data("targets", targets);
 			
-			
+			//tasks
 			var tasks = [];
 			$('.task_name').each(function( index )
             {
 				tasks.push($(this).val());
 			});
-			
+			CleanTasks();
 			$(editable_item).data("tasks", tasks);
 			
-			//$("#dialog").dialog( "close" );
+			
+			//competences
+			var competences = [];
+			$(".competence .competence_name").each(function(index) 
+			{
+				competences[index] = {"name":"", "code":""};
+				competences[index]['name'] = $(this).val();
+			});
+			$(".competence .competence_code").each(function(index) 
+			{
+				competences[index]['code'] = $(this).val();
+			});
+			$(".competence .competence_knowledges").each(function(index) 
+			{
+				competences[index]['knowledges'] = $(this).val();
+			});
+			$(".competence .competence_crafts").each(function(index) 
+			{
+				competences[index]['crafts'] = $(this).val();
+			});
+			$(".competence .competence_skills").each(function(index) 
+			{
+				competences[index]['skills'] = $(this).val();
+			});
+			
+			CleanCompetences();
+			$(editable_item).data("competences", competences);
+			
+			
+			//themes
+			var themes = [];
+			$(".theme .theme_name").each(function(index) 
+			{
+				themes[index] = {"name":"", "description":"", "hours":"", "type":""};
+				themes[index]['name'] = $(this).val();
+			});
+			$(".theme .theme_description").each(function(index) 
+			{
+				themes[index]['description'] = $(this).val();
+			});
+			$(".theme .theme_hours").each(function(index) 
+			{
+				themes[index]['hours'] = $(this).val();
+			});
+			$(".theme .theme_type").each(function(index) 
+			{
+				themes[index]['type'] = $(this).val();
+			});
+			CleanThemes();
+			$(editable_item).data("themes", themes);
+			
+			
+			//bibliographys
+			var bibliographys = [];
+			$('.bibliography_name').each(function( index )
+            {
+				bibliographys.push($(this).val());
+			});
+			CleanBibliographys();
+			$(editable_item).data("bibliographys", bibliographys);
+			
+			//softwares
+			var softwares = [];
+			$('.software_name').each(function( index )
+            {
+				softwares.push($(this).val());
+			});
+			CleanSoftwares();
+			$(editable_item).data("softwares", softwares);
+
+			
 			$("#editorForm").modal("hide");
 		}
 	});
@@ -491,10 +622,41 @@
 			
 			CleanTargets();
 			var targets = $(this).data("targets");
-			$(targets).each(function( index ) 
-			{
-				AddTarget($(this).val());
-			});
+			for (let i=0; i<targets.length; i++) {
+				AddTarget(targets[i]);
+			}
+			
+			CleanTasks();
+			var tasks = $(this).data("tasks");
+			for (let i=0; i<tasks.length; i++) {
+				AddTask(tasks[i]);
+			}
+			
+			CleanCompetences();
+			var competences = $(this).data("competences");
+			console.log("comp :::");
+			console.log(competences); 
+			for (let i=0; i<competences.length; i++) {
+				AddCompetence(competences[i]['code'],competences[i]['name'],competences[i]['knowledges'],competences[i]['crafts'],competences[i]['skills'],);
+			}
+			
+			CleanThemes();
+			var themes = $(this).data("themes");
+			for (let i=0; i<themes.length; i++) {
+				AddTheme(themes[i]['name'],themes[i]['description'],themes[i]['hours'],themes[i]['type']);
+			}
+			
+			CleanBibliographys();
+			var bibliographys = $(this).data("bibliographys");
+			for (let i=0; i<bibliographys.length; i++) {
+				AddBibliography(bibliographys[i]);
+			}
+			
+			CleanSoftwares();
+			var softwares = $(this).data("softwares");
+			for (let i=0; i<softwares.length; i++) {
+				AddSoftware(softwares[i]);
+			}
 			
 		});
 	}
@@ -548,6 +710,9 @@
 			
 			test['bg_color']=$(this).data("bg_color");
 			test['text_color']=$(this).data("text_color");
+			
+			test['targets']=$(this).data("targets");
+			test['tasks']=$(this).data("tasks");
 			
 			Subjects.push(test);
 		});
@@ -656,7 +821,7 @@ setTimeout(GetStartState, 1000);
 
 //Editor form targets
 $("#add_target").click(function (e) {
-	$(".targets").append('<div class="target"><label for="etarget_name">Название:</label><input type="text" name="etarget_name" class="form-control target_name"><button type="button" class="btn btn-danger" onclick="return delete_target(this);">Удалить</button><br></div>');
+	AddTarget('');
 });
 
 function AddTarget(value) {
@@ -676,10 +841,115 @@ function delete_target(element) {
 
 //Editor form tasks
 $("#add_task").click(function (e) {
-	$(".tasks").append('<div class="task"><label for="etarget_name">Название:</label><input type="text" name="etask_name" class="form-control task_name"><button type="button" class="btn btn-danger" onclick="return delete_task(this);">Удалить</button><br></div>');
+	AddTask('');
 });
 
 function delete_task(element) {
 	console.log($(element));
 		$(element).parent().remove();
+};
+
+function AddTask(value) {
+	$(".tasks").append('<div class="task"><label for="etask_name">Название:</label><input type="text" name="etask_name" class="form-control task_name" value="'+value+'"><button type="button" class="btn btn-danger" onclick="return delete_task(this);">Удалить</button><br></div>');
+};
+
+function CleanTasks() {
+	$(".tasks").html('');
+};
+
+//Editor form competence
+$("#add_competence").click(function (e) {
+	AddCompetence('','','','','',);
+});
+
+function delete_competence(element) {
+	console.log($(element));
+		$(element).parent().remove();
+};
+
+function AddCompetence(competence_code,competence_name,competence_knowledges,competence_crafts,competence_skills) {
+	$(".competences").append('<div class="competence"><label for="ecompetence_code">Код:</label><input type="text" name="ecompetence_code" class="form-control competence_code" value="'+competence_code+'"><label for="ecompetence_name">Название:</label><input type="text" name="ecompetence_name" class="form-control competence_name" value="'+competence_name+'"><label for="ecompetence_knowledges">Знания:</label><input type="text" name="ecompetence_knowledges" class="form-control competence_knowledges" value="'+competence_knowledges+'"><label for="ecompetence_crafts">Умения:</label><input type="text" name="ecompetence_crafts" class="form-control competence_crafts" value="'+competence_crafts+'"><label for="ecompetence_skills">Навыки:</label><input type="text" name="ecompetence_skills" class="form-control competence_skills" value="'+competence_skills+'"><button type="button" class="btn btn-danger" onclick="return delete_task(this);">Удалить</button><br></div>');
+};
+
+function CleanCompetences() {
+	$(".competences").html('');
+};
+
+//Editor form themes
+$("#add_theme").click(function (e) {
+	AddTheme('','','','');
+});
+
+function delete_theme(element) {
+	console.log($(element));
+		$(element).parent().remove();
+};
+
+function AddTheme(theme_name, theme_description, theme_hours, theme_type) {
+	
+	var new_theme = document.createElement('div');
+            new_theme.className = 'theme';
+            new_theme.innerHTML = `<label for="etheme_name">Название:</label>
+			<input type="text" name="etheme_name" class="form-control theme_name">
+			<label for="etheme_description">Краткое описание:</label>
+			<input type="text" name="etheme_description" class="form-control theme_description">
+			<label for="etheme_hours">Длительность(часов):</label>
+			<input type="number" name="etheme_hours" class="form-control theme_hours">
+			<label for="etheme_type">Вид нагрузки:</label>
+			<select class="form-control theme_type" id="etheme_type" name="etheme_type">
+			<option value="1">Лекция</option>
+			<option value="2">Семинар</option>
+			<option value="3">Лабораторная работа</option>
+			<option value="4">Самостоятельная работа</option>
+			</select>
+			<button type="button" class="btn btn-danger" onclick="return delete_task(this);">Удалить</button><br>`;
+	if(theme_type == '')
+		$(new_theme).find('.theme_type').val(1);
+	else
+		$(new_theme).find('.theme_type').val(theme_type);
+	$(new_theme).find('.theme_hours').val(theme_hours);
+	$(new_theme).find('.theme_description').val(theme_description);
+	$(new_theme).find('.theme_name').val(theme_name);
+			
+	$(".themes").append(new_theme);
+};
+
+function CleanThemes() {
+	$(".themes").html('');
+};
+
+//Editor form bibliographys
+$("#add_bibliography").click(function (e) {
+	AddBibliography('');
+});
+
+function delete_bibliography(element) {
+	console.log($(element));
+		$(element).parent().remove();
+};
+
+function AddBibliography(value) {
+	$(".bibliographys").append('<div class="bibliography"><label for="ebibliography_name">Название:</label><input type="text" name="ebibliography_name" class="form-control bibliography_name" value="'+value+'"><button type="button" class="btn btn-danger" onclick="return delete_bibliography(this);">Удалить</button><br></div>');
+};
+
+function CleanBibliographys() {
+	$(".bibliographys").html('');
+};
+
+//Editor form softwares
+$("#add_software").click(function (e) {
+	AddSoftware('');
+});
+
+function delete_software(element) {
+	console.log($(element));
+		$(element).parent().remove();
+};
+
+function AddSoftware(value) {
+	$(".softwares").append('<div class="software"><label for="esoftware_name">Название:</label><input type="text" name="esoftware_name" class="form-control software_name" value="'+value+'"><button type="button" class="btn btn-danger" onclick="return delete_task(this);">Удалить</button><br></div>');
+};
+
+function CleanSoftwares() {
+	$(".softwares").html('');
 };

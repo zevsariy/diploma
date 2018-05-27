@@ -13,11 +13,14 @@ class Subjects
 		
 		foreach ($subjects as $subject)
 		{
+			$subject['targets'] = json_encode($subject['targets'], JSON_UNESCAPED_UNICODE);
+			$subject['tasks'] = json_encode($subject['tasks'], JSON_UNESCAPED_UNICODE);
+			
 			
 			if(strlen($subject['id'])==0 && $subject['delete']!='1') 
 			{
-				$stmt = $DB->prepare("INSERT INTO subjects (name, type, plan_id, position, zuch_ed, semester, lections, seminars, labs, selfwork, part, kurs_project, kurs_work, bg_color, text_color) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-				$stmt->bind_param('ssissssssssssss', $subject['name'], $subject['type'],$plan_id,$subject['position'],$subject['zuch_ed'],$subject['semester'],$subject['lections'],$subject['seminars'],$subject['labs'],$subject['selfwork'],$subject['part'],$subject['kurs_project'],$subject['kurs_work'],$subject['bg_color'],$subject['text_color']);
+				$stmt = $DB->prepare("INSERT INTO subjects (name, type, plan_id, position, zuch_ed, semester, lections, seminars, labs, selfwork, part, kurs_project, kurs_work, bg_color, text_color, targets, tasks) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+				$stmt->bind_param('ssissssssssssssss', $subject['name'], $subject['type'],$plan_id,$subject['position'],$subject['zuch_ed'],$subject['semester'],$subject['lections'],$subject['seminars'],$subject['labs'],$subject['selfwork'],$subject['part'],$subject['kurs_project'],$subject['kurs_work'],$subject['bg_color'],$subject['text_color'],$subject['targets'],$subject['tasks']);
 				echo "";
 			}
 			else
@@ -25,8 +28,8 @@ class Subjects
 				if($subject['delete']!='1')
 				{
 					
-					$stmt = $DB->prepare("update subjects set name=?, type=?, plan_id=?, position=?, zuch_ed=?, semester=?, lections=?, seminars=?, labs=?, selfwork=?, part=?, kurs_project=?, kurs_work=?, bg_color=?, text_color=? WHERE id=?");
-					$stmt->bind_param('ssissssssssssssi', $subject['name'], $subject['type'], $plan_id, $subject['position'], $subject['zuch_ed'], $subject['semester'],$subject['lections'],$subject['seminars'],$subject['labs'],$subject['selfwork'],$subject['part'],$subject['kurs_project'],$subject['kurs_work'],$subject['bg_color'],$subject['text_color'], $subject['id']);
+					$stmt = $DB->prepare("update subjects set name=?, type=?, plan_id=?, position=?, zuch_ed=?, semester=?, lections=?, seminars=?, labs=?, selfwork=?, part=?, kurs_project=?, kurs_work=?, bg_color=?, text_color=?, targets=?, tasks=? WHERE id=?");
+					$stmt->bind_param('ssissssssssssssssi', $subject['name'], $subject['type'], $plan_id, $subject['position'], $subject['zuch_ed'], $subject['semester'],$subject['lections'],$subject['seminars'],$subject['labs'],$subject['selfwork'],$subject['part'],$subject['kurs_project'],$subject['kurs_work'],$subject['bg_color'],$subject['text_color'],$subject['targets'],$subject['tasks'], $subject['id']);
 				}
 				else
 				{

@@ -274,7 +274,7 @@
 						<div class="col">
 							<div class="form-group tasks">
 								<div class="task">
-									  <label for="etarget_name">Название:</label>
+									  <label for="etask_name">Название:</label>
 									  <input type="text" name="etask_name" class="form-control task_name"><button type="button" class="btn btn-danger" onclick="return delete_task(this);">Удалить</button><br>
 								</div>
 							</div>
@@ -283,6 +283,81 @@
 					<button type="button" class="btn btn-primary" id="add_task">Добавить</button>
 				</div>
 				
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col">
+							<h2>Компетенции</h2>
+						</div>
+					</div>	
+					<div class="row">
+						<div class="col">
+							<div class="form-group competences">
+								<div class="competences">
+									  <label for="ecompetence_name">Название:</label>
+									  <input type="text" name="ecompetence_name" class="form-control competence_name"><button type="button" class="btn btn-danger" onclick="return delete_competence(this);">Удалить</button><br>
+								</div>
+							</div>
+						</div>
+					</div>	
+					<button type="button" class="btn btn-primary" id="add_competence">Добавить</button>
+				</div>
+				
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col">
+							<h2>Темы</h2>
+						</div>
+					</div>	
+					<div class="row">
+						<div class="col">
+							<div class="form-group themes">
+								<div class="themes">
+									  <label for="etheme_name">Название:</label>
+									  <input type="text" name="etheme_name" class="form-control theme_name"><button type="button" class="btn btn-danger" onclick="return delete_theme(this);">Удалить</button><br>
+								</div>
+							</div>
+						</div>
+					</div>	
+					<button type="button" class="btn btn-primary" id="add_theme">Добавить</button>
+				</div>
+				
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col">
+							<h2>Список литературы</h2>
+						</div>
+					</div>	
+					<div class="row">
+						<div class="col">
+							<div class="form-group bibliographys">
+								<div class="bibliographys">
+									  <label for="ebibliography_name">Название:</label>
+									  <input type="text" name="ebibliography_name" class="form-control bibliography_name"><button type="button" class="btn btn-danger" onclick="return delete_bibliography(this);">Удалить</button><br>
+								</div>
+							</div>
+						</div>
+					</div>	
+					<button type="button" class="btn btn-primary" id="add_bibliography">Добавить</button>
+				</div>
+				
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col">
+							<h2>Необходимое ПО</h2>
+						</div>
+					</div>	
+					<div class="row">
+						<div class="col">
+							<div class="form-group softwares">
+								<div class="softwares">
+									  <label for="esoftware_name">Название:</label>
+									  <input type="text" name="esoftware_name" class="form-control software_name"><button type="button" class="btn btn-danger" onclick="return delete_software(this);">Удалить</button><br>
+								</div>
+							</div>
+						</div>
+					</div>	
+					<button type="button" class="btn btn-primary" id="add_software">Добавить</button>
+				</div>
 				
 				<div class="modal-footer">
 					<button class="btn btn-primary name="saver" id="edit_saver">Сохранить</button>

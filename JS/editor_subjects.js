@@ -713,6 +713,10 @@
 			
 			test['targets']=$(this).data("targets");
 			test['tasks']=$(this).data("tasks");
+			test['competences']=$(this).data("competences");
+			test['themes']=$(this).data("themes");
+			test['bibliographys']=$(this).data("bibliographys");
+			test['softwares']=$(this).data("softwares");
 			
 			Subjects.push(test);
 		});

@@ -5,23 +5,23 @@ class PlanEditor
 	public static $module;
 	public static $script;
 	
-	public static function GetSubjects($plan_id)
-	{
-		global $DB; 
-		$stmt = $DB->prepare("SELECT * FROM subjects WHERE plan_id=? ORDER BY position");
-		$stmt->bind_param('s', $plan_id);
-		$stmt->execute();
-		$result = $stmt->get_result();
+	// public static function GetSubjects($plan_id)
+	// {
+		// global $DB; 
+		// $stmt = $DB->prepare("SELECT * FROM subjects WHERE plan_id=? ORDER BY position");
+		// $stmt->bind_param('s', $plan_id);
+		// $stmt->execute();
+		// $result = $stmt->get_result();
 		
-		while ($row = $result->fetch_assoc())
-		{
-			if($row['bg_color'] == '') $row['bg_color']="#FFF";
-			if($row['text_color'] == '') $row['text_color']="#000"; 
-			self::$script.="add_new_item(".$row['id'].",'".$row['name']."',".$row['semester'].",".$row['size'].",".$row['type'].",".$row['lections'].",".$row['seminars'].",".$row['labs'].",".$row['selfwork'].",".$row['part'].",".$row['kurs_project'].",".$row['kurs_work'].",'".$row['bg_color']."','".$row['text_color']."');";
-		}
-		$stmt->close(); 
-		return self::$script;
-	}
+		// while ($row = $result->fetch_assoc())
+		// {
+			// if($row['bg_color'] == '') $row['bg_color']="#FFF";
+			// if($row['text_color'] == '') $row['text_color']="#000"; 
+			// self::$script.="add_new_item(".$row['id'].",'".$row['name']."',".$row['semester'].",".$row['size'].",".$row['type'].",".$row['lections'].",".$row['seminars'].",".$row['labs'].",".$row['selfwork'].",".$row['part'].",".$row['kurs_project'].",".$row['kurs_work'].",'".$row['bg_color']."','".$row['text_color']."');";
+		// }
+		// $stmt->close(); 
+		// return self::$script;
+	// }
 	
 	public static function GetOpParts()
 	{

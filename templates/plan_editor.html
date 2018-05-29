@@ -134,9 +134,33 @@
 	</div>
 	
 	
-	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editorForm">
-  Launch demo modal
-</button>
+<div class="test_sortables">
+	<div class="sort_item">
+	<button type="button" class="btn btn-danger" onclick="return sort_down(this);">Down1</button>
+	</div>
+	<div class="sort_item">
+	<button type="button" class="btn btn-danger" onclick="return sort_down(this);">Down2</button>
+	</div>
+	<div class="sort_item">
+	<button type="button" class="btn btn-danger" onclick="return sort_down(this);">Down3</button>
+	</div>
+	<div class="sort_item">
+	<button type="button" class="btn btn-danger" onclick="return sort_down(this);">Down4</button>
+	</div>
+</div>
+
+<script>
+function sort_down(item) {
+	var test = $(item).parent();
+	$( ".sort_item" ).each(function( index ) {
+		if($(this) == $(test))
+			console.log('yes');
+		else
+			console.log('no');
+	}
+	);
+}
+</script>
 
 	<!-- Modal -->
 <div class="modal fade" id="editorForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

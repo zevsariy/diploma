@@ -10,7 +10,6 @@ class Manager
 	
 	public static function Decode()
 	{
-		session_start();
 		if(!isset($_SESSION['token']) | !Auth::Check($_SESSION['token']))
 		{
 			$_GET['module'] = "auth";
@@ -149,6 +148,24 @@ class Manager
 			else if(self::$action == "logoff")
 			{
 				Auth::Logoff();
+			}
+		}
+		else if(self::$module == "test")
+		{
+			if(self::$action == "test")
+			{
+				// $vars = array('test' => 'Тестовая дисциплина', 'test1' => 'Т1111иплина', 'test2' => 'Тест22222иплина');
+				// $new_rtf = Document::prepare($vars, "./Bazy_dannykh_2017.rtf");
+				// $fr = fopen('./output.rtf', 'w') ;
+				// fwrite($fr, $new_rtf);
+				// fclose($fr);
+				
+				$document = new DOCx($_SERVER['DOCUMENT_ROOT']."/test.docx");
+				$document->cleanTagVars();
+				//for($i=0; $i< 100; $i++)
+				$document->setValue("s123", "test1");
+				//$document->setValues(Array("[s123]"=>"test1","[s124]"=>"test1111","SUBJECT_2"=>"test1222"));
+				$document->save('output.docx');
 			}
 		}
 		else

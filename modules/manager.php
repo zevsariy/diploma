@@ -150,29 +150,94 @@ class Manager
 				Auth::Logoff();
 			}
 		}
-		else if(self::$module == "test")
+		else if(self::$module == "subjects")
 		{
-			if(self::$action == "test")
+			if(self::$action == "savetodocx")
 			{
-				// $vars = array('test' => 'Тестовая дисциплина', 'test1' => 'Т1111иплина', 'test2' => 'Тест22222иплина');
-				// $new_rtf = Document::prepare($vars, "./Bazy_dannykh_2017.rtf");
-				// $fr = fopen('./output.rtf', 'w') ;
-				// fwrite($fr, $new_rtf);
-				// fclose($fr);
+				$fileName = "Тестовая дисциплина";
+				$template = "./templates/docs/main.docx";
+				$subjectParameters = Subjects::GetDataForDocx(self::$id);
 				
-				$document = new DOCx($_SERVER['DOCUMENT_ROOT']."/test.docx");
-				$document->cleanTagVars();
-				//for($i=0; $i< 100; $i++)
-				$document->setValue("s123", "test1");
-				//$document->setValues(Array("[s123]"=>"test1","[s124]"=>"test1111","SUBJECT_2"=>"test1222"));
-				$document->save('output.docx');
+				$_doc = new \PhpOffice\PhpWord\TemplateProcessor($template);
+				$_doc2 = new  \PhpOffice\PhpWord\PhpWord();
+				foreach($subjectParameters as $key => $value) 
+				{
+					if($key == "targets")
+					{
+						$targets = $subjectParameters['targets'];
+						$targets_data = '';
+						foreach($targets as $key => $value) 
+						{
+							$targets_data .= $value;
+						}
+						$_doc->setValue('targets', $targets_data);
+					}
+					else if($key == "tasks" && is_array($value))
+					{
+						$tasks = $subjectParameters['tasks'];
+						$tasks_data = '';
+						foreach($tasks as $key => $value) 
+						{
+							$tasks_data .= $value;
+						}
+						$_doc->setValue('tasks', $tasks_data);
+					}
+					else if($key == "competences" && is_array($value))
+					{
+						$competences = $subjectParameters['competences'];
+						$competences_data = '';
+						foreach($competences as $key => $value) 
+						{
+							$competences_data .= $value['code']." ".$value['name']." ".$value['knowledges']." ".$value['crafts']." ".$value['skills'];
+						}
+						$_doc->setValue('competences', $competences_data);
+					}
+					else if($key == "themes" && is_array($value))
+					{
+						$themes = $subjectParameters['themes'];
+						$themes_data = '';
+						foreach($themes as $key => $value) 
+						{
+							$themes_data .= $value['name']." ".$value['description']." ".$value['hours']." ".$value['type'];
+						}
+						$_doc->setValue('themes', $themes_data);
+					}
+					else if($key == "bibliographys" && is_array($value))
+					{
+						$bibliographys = $subjectParameters['bibliographys'];
+						$bibliographys_data = '';
+						foreach($bibliographys as $key => $value) 
+						{
+							$bibliographys_data .= $value;
+						}
+						$_doc->setValue('bibliographys', $bibliographys_data);
+					}
+					else if($key == "softwares" && is_array($value))
+					{
+						$softwares = $subjectParameters['softwares'];
+						$softwares_data = '';
+						foreach($softwares as $key => $value) 
+						{
+							$softwares_data .= $value;
+						}
+						$_doc->setValue('softwares', $softwares_data);
+					}
+					else
+					{
+						$_doc->setValue($key, $value);
+					}
+				}
 			}
+			// вывод непосредственно в браузер
+			header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+			header('Content-Disposition: attachment;filename="'.$fileName.'.docx"');
+			header('Cache-Control: max-age=0');
+			$_doc->saveAs('php://output');
 		}
 		else
 		{
 			self::$content=file_get_contents("./templates/404.html");
 		}
-		
 		echo self::$content;
 	}
 	

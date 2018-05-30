@@ -239,6 +239,13 @@
 		}
 	}
 	
+	$("#DOCX").click(function() {
+		var id = Number($(editable_item).data("id"));
+		var win = window.open("/?module=subjects&action=savetodocx&id="+id, '_blank');
+		win.focus();
+	});
+	
+	
 	$("#edit_saver").click(function() {
 		
 		var hoursSum = Number($("#elections").val()) + Number($("#eseminars").val()) + Number($("#elabs").val()) + Number($("#eselfwork").val());

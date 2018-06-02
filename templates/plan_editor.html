@@ -28,7 +28,7 @@
 	
 	
 	<!-- Font Awesome CSS -->
-    <link rel="stylesheet" href="/CSS/awesamefont.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
 </head>
 <body>
 
@@ -40,54 +40,17 @@
 
 				  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav mr-auto">
-					  <li class="nav-item active">
-						<a class="nav-link" href="/index.php?module=plans&action=view"><< Назад</a>
-					  </li>
-					  <li class="nav-item dropdown">
-						<p class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						  Файл
-						</p>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						  <p class="dropdown-item" id="ExportToPrinter" onclick="print_doc()">Экспортировать</p>
-						  
-						  <div class="dropdown-divider"></div>
-						  
-						  <p class="dropdown-item" id="SaveChanges">Сохранить</p>
-						  
-						  <div class="dropdown-divider"></div>
-
-						</div>
-					  </li>
-					  <li class="nav-item"><p class="nav-link" data-toggle="modal" data-target="#fontSizeModal">Шрифт</p></li>
-					  <li class="nav-item"><p class="nav-link" id="HideIcons">Скрыть иконки</p></li>	
+					  <li class="nav-item"><p class="nav-link menu-middle" onclick="location='/index.php?module=plans&action=view'"><i class="fa fa-arrow-left"></i>Назад</a></li>
+					  <li class="nav-item"><p class="nav-link menu-middle" id="SaveChanges"><i class="fa fa-save"></i>Сохранить</p></li>
+					  <li class="nav-item"><p class="nav-link menu-middle" onclick="print_doc()"><i class="fa fa-print"></i>Печать</p></li>
+					  <li class="nav-item"><p class="nav-link menu-middle" id="increase"><i class="fa fa-font"></i>+</p></li>
+					  <li class="nav-item"><p class="nav-link menu-middle" id="decrease"><i class="fa fa-font"></i>-</p></li>
+					  <li class="nav-item"><p class="nav-link menu-middle" id="reset"><i class="fa fa-refresh"></i>Сброс</p></li>
+					  <li class="nav-item"><p class="nav-link menu-middle" id="HideIcons">Скрыть иконки</p></li>				  
 					</ul>
 					<img src="/CSS/images/polylogo-black.png" class="polylogo">
 				  </div>
 				</nav>
-
-
-<!-- Modal -->
-<div class="modal fade" id="fontSizeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Настройка шрифтов</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">	  
-
-		<a class="dropdown-item" id="increase">Увеличить</a>
-
-		<a class="dropdown-item" id="decrease">Уменьшить</a>
-
-		<a class="dropdown-item" id="reset">Сброс</a>
-
-      </div>
-    </div>
-  </div>
-</div>
 				
 				
 
@@ -106,7 +69,7 @@
 			</div>
 			
 			<div class="statistic">
-				<div style="width: 6%;">
+				<div style="width: 7.0%;">
 				</div>
 			</div>
 			
@@ -136,27 +99,52 @@
 	
 <div class="test_sortables">
 	<div class="sort_item">
-	<button type="button" class="btn btn-danger" onclick="return sort_down(this);">Down1</button>
+	<button type="button" data-id="0" class="btn btn-danger" onclick="return sort_down(this);">Down1</button>
 	</div>
 	<div class="sort_item">
-	<button type="button" class="btn btn-danger" onclick="return sort_down(this);">Down2</button>
+	<button type="button" data-id="1" class="btn btn-danger" onclick="return sort_down(this);">Down2</button>
 	</div>
 	<div class="sort_item">
-	<button type="button" class="btn btn-danger" onclick="return sort_down(this);">Down3</button>
+	<button type="button" data-id="2" class="btn btn-danger" onclick="return sort_down(this);">Down3</button>
 	</div>
 	<div class="sort_item">
-	<button type="button" class="btn btn-danger" onclick="return sort_down(this);">Down4</button>
+	<button type="button" data-id="3" class="btn btn-danger" onclick="return sort_down(this);">Down4</button>
 	</div>
 </div>
 
 <script>
+
+jQuery.fn.swap = function(b) {
+    b = jQuery(b)[0];
+    var a = this[0],
+        a2 = a.cloneNode(true),
+        b2 = b.cloneNode(true),
+        stack = this;
+
+    a.parentNode.replaceChild(b2, a);
+    b.parentNode.replaceChild(a2, b);
+
+    stack[0] = a2;
+    return this.pushStack( stack );
+};
+
 function sort_down(item) {
-	var test = $(item).parent();
-	$( ".sort_item" ).each(function( index ) {
-		if($(this) == $(test))
-			console.log('yes');
-		else
-			console.log('no');
+	var id = $(item).data('id');
+	console.log("selected_id: " + $(this).data('id'));
+	$( ".sort_item" ).each(function( index ) 
+	{
+		console.log("each_id: " + $(this).data('id'));
+		if(index == id)
+		{
+			$($( ".sort_item" )[index]).swap($($( ".sort_item" )[index + 1]));
+			console.log("yes_id: " + $(this).data('id'));
+		}
+	}
+	);
+	
+	$( ".sort_item" ).each(function( index ) 
+	{
+		$(this).data('id', index)
 	}
 	);
 }
@@ -167,226 +155,235 @@ function sort_down(item) {
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-			<h5 class="modal-title" id="exampleModalLabel">Редактирование дисциплины</h5>
+			<h3 class="modal-title" id="modalSubjectTitle">Имя дисциплины</h3>
 			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 			  <span aria-hidden="true">&times;</span>
 			</button>
 			</div>
 			<div class="modal-body">
-				<div class="alert alert-danger" role="alert" id="ealert"></div>	  
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col">
-							<h2>Основные</h2>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col">
-							<div class="form-group">
-								  <label for="ename">Название:</label>
-								  <input type="text" name="title" id="ename" class="form-control"><br>
+				<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+					<li class="nav-item">
+						<a class="pad_link nav-link active" id="pills-main-tab" data-toggle="pill" href="#pills-main" role="tab" aria-controls="pills-main" aria-selected="true">Основные</a>
+					</li>
+					<li class="nav-item">
+						<a class="pad_link nav-link" id="pills-targets-tab" data-toggle="pill" href="#pills-targets" role="tab" aria-controls="pills-targets" aria-selected="false">Цели</a>
+					</li>
+					<li class="nav-item">
+						<a class="pad_link nav-link" id="pills-tasks-tab" data-toggle="pill" href="#pills-tasks" role="tab" aria-controls="pills-tasks" aria-selected="false">Задачи</a>
+					</li>
+					<li class="nav-item">
+						<a class="pad_link nav-link" id="pills-competences-tab" data-toggle="pill" href="#pills-competences" role="tab" aria-controls="pills-competences" aria-selected="false">Компетенции</a>
+					</li>
+					<li class="nav-item">
+						<a class="pad_link nav-link" id="pills-themes-tab" data-toggle="pill" href="#pills-themes" role="tab" aria-controls="pills-themes" aria-selected="false">Темы</a>
+					</li>
+					<li class="nav-item">
+						<a class="pad_link nav-link" id="pills-bibliographys-tab" data-toggle="pill" href="#pills-bibliographys" role="tab" aria-controls="pills-bibliographys" aria-selected="false">Список литературы</a>
+					</li>
+					<li class="nav-item">
+						<a class="pad_link nav-link" id="pills-softwares-tab" data-toggle="pill" href="#pills-softwares" role="tab" aria-controls="pills-softwares" aria-selected="false">Необходимое ПО</a>
+					</li>
+				</ul>
+				<div class="alert alert-danger" role="alert" id="ealert"></div>	
+				<div class="tab-content" id="pills-tabContent">
+					<div class="tab-pane fade show active" id="pills-main" role="tabpanel" aria-labelledby="pills-main-tab"><div class="container-fluid">
+							<div class="row">
+								<div class="col">
+									<div class="input-group mb-3">
+									  <div class="input-group-prepend">
+										<span class="input-group-text" id="basic-mainname">Название:</span>
+									  </div>
+									  <input type="text" name="title" id="ename" class="form-control" aria-describedby="basic-mainname">
+									</div>
+								</div>
 							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col">
-							<div class="form-group">
-								  <label for="ehours">Часов суммарно:</label>
-								  <input type="text" name="title" id="ehours" class="form-control" disabled><br>
+							<div class="row">
+								<div class="col">
+									<div class="input-group mb-3">
+									  <div class="input-group-prepend">
+										<span class="input-group-text" id="basic-mainhours">Часов суммарно:</span>
+									  </div>
+									  <input type="text" name="title" id="ehours" class="form-control" aria-describedby="basic-mainhours" disabled>
+									</div>
+								</div>
 							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col">
-							<div class="form-group">
-								<label for="elections">Лекции:</label>
-								<input type="number" name="lek" id="elections" class="form-control" width="20px"><br>
+							<div class="row">
+								<div class="col-sm">
+									<div class="input-group mb-3">
+									  <div class="input-group-prepend">
+										<span class="input-group-text" id="basic-mainlect">Лекции:</span>
+									  </div>
+									  <input type="number" name="lek" id="elections" class="form-control" aria-describedby="basic-mainlect">
+									</div>
+								</div>
+								<div class="col-sm">
+									<div class="input-group mb-3">
+									  <div class="input-group-prepend">
+										<span class="input-group-text" id="basic-mainsem">Семинары:</span>
+									  </div>
+									  <input type="number" name="lek" id="eseminars" class="form-control" aria-describedby="basic-mainsem">
+									</div>
+								</div>
 							</div>
-						</div>
-						<div class="col">
-							<div class="form-group">
-								<label for="eseminars">Семинары:</label>
-								<input type="number" name="lek" id="eseminars" class="form-control" width="20px"><br>
+							<div class="row">
+								<div class="col-sm">
+									<div class="input-group mb-3">
+									  <div class="input-group-prepend">
+										<span class="input-group-text" id="basic-mainlabs">Лабораторные работы:</span>
+									  </div>
+									  <input type="number" name="labs" id="elabs" class="form-control" aria-describedby="basic-mainlabs" size="2">
+									</div>
+								</div>
+								<div class="col-sm">
+									<div class="input-group mb-3">
+									  <div class="input-group-prepend">
+										<span class="input-group-text" id="basic-mainlabs">Самостоятельные работы:</span>
+									  </div>
+									  <input type="number" name="sam" id="eselfwork" class="form-control" aria-describedby="basic-mainlabs" size="2">
+									</div>
+								</div>
 							</div>
-						</div>
-						<div class="col">
-							<div class="form-group">
-								<label for="elabs">Лабораторные часы:</label>
-								<input type="number" name="labs" id="elabs" class="form-control" width="20px"><br>
-							</div>
-						</div>
-						<div class="col">
-							<div class="form-group">
-								<label for="eselfwork">Самостоятельные часы:</label>
-								<input type="number" name="sam" id="eselfwork" class="form-control" width="20px"><br>
-							</div>
-						</div>
-					</div>
 
-					<div class="row">
-						<div class="col">
-							<div class="form-group">
-								<label for="epart">Часть ОП:</label>
-								<select size="1" id="epart" class="form-control">
-								</select>
+							<div class="row">
+								<div class="col">
+									<div class="form-group">
+										<label for="epart">Часть ОП:</label>
+										<select size="1" id="epart" class="form-control">
+										</select>
+									</div>
+								</div>
+								<div class="col">
+									<div class="form-group">
+										<label for="etype">Тип:</label>
+										<select size="1" id="etype" class="form-control">
+											<option value="1" selected>Зачет</option>
+											<option value="2">Экзамен</option>
+											<option value="3">Элективная</option>
+										</select>
+									</div>
+								</div>
 							</div>
-						</div>
-						<div class="col">
-							<div class="form-group">
-								<label for="etype">Тип:</label>
-								<select size="1" id="etype" class="form-control">
-									<option value="1" selected>Зачет</option>
-									<option value="2">Экзамен</option>
-									<option value="3">Элективная</option>
-								</select>
+							<div class="row">
+								<div class="col">
+									<div class="form-group form-check">
+										<label class="form-check-label"><input class="form-check-input" type="checkbox" id="ekurs_work">Курсовая работа</label>
+									</div>
+								</div>
+								<div class="col">
+									<div class="form-group form-check">
+										<label class="form-check-label"><input class="form-check-input" type="checkbox" id="ekurs_project">Курсовой проект</label>
+									</div>
+								</div>
 							</div>
+							<div class="row">
+								<div class="col">
+									<div class="form-group form-check">
+										<label class="form-check-label">Цвет фона<input class="form-check-input" style="margin-left:20px;" type="color" id="ebgcolor"></label>
+									</div>
+								</div>
+								<div class="col">
+									<div class="form-group form-check">
+										<label class="form-check-label">Цвет текста<input class="form-check-input" style="margin-left:20px;" type="color" id="etextcolor"></label>
+									</div>
+								</div>
+							</div>			
 						</div>
 					</div>
-					<div class="row">
-						<div class="col">
-							<div class="form-group form-check">
-								<label class="form-check-label"><input class="form-check-input" type="checkbox" id="ekurs_work">Курсовая работа</label>
-							</div>
-						</div>
-						<div class="col">
-							<div class="form-group form-check">
-								<label class="form-check-label"><input class="form-check-input" type="checkbox" id="ekurs_project">Курсовой проект</label>
-							</div>
+					<div class="tab-pane fade" id="pills-targets" role="tabpanel" aria-labelledby="pills-targets-tab">
+						<div class="container-fluid editor_form_group">
+							<div class="row">
+								<div class="col">
+									<div class="form-group targets">
+										<div class="target">
+											  <label for="etarget_name">Название:</label>
+											  <input type="text" name="etarget_name" class="form-control target_name"><button type="button" class="btn btn-danger" onclick="return delete_target(this);">Удалить</button><br>
+										</div>
+									</div>
+								</div>
+							</div>	
+							<button type="button" class="btn btn-primary" id="add_target">Добавить</button>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col">
-							<div class="form-group form-check">
-								<label class="form-check-label">Цвет фона<input class="form-check-input" style="margin-left:20px;" type="color" id="ebgcolor"></label>
-							</div>
-						</div>
-						<div class="col">
-							<div class="form-group form-check">
-								<label class="form-check-label">Цвет текста<input class="form-check-input" style="margin-left:20px;" type="color" id="etextcolor"></label>
-							</div>
-						</div>
-					</div>			
-				</div>
-				
-				
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col">
-							<h2>Цели</h2>
-						</div>
-					</div>	
-					<div class="row">
-						<div class="col">
-							<div class="form-group targets">
-								<div class="target">
-									  <label for="etarget_name">Название:</label>
-									  <input type="text" name="etarget_name" class="form-control target_name"><button type="button" class="btn btn-danger" onclick="return delete_target(this);">Удалить</button><br>
+					<div class="tab-pane fade" id="pills-tasks" role="tabpanel" aria-labelledby="pills-tasks-tab">
+						<div class="container-fluid editor_form_group">	
+							<div class="row">
+								<div class="col">
+									<div class="form-group tasks">
+										<div class="task">
+											  <label for="etask_name">Название:</label>
+											  <input type="text" name="etask_name" class="form-control task_name"><button type="button" class="btn btn-danger" onclick="return delete_task(this);">Удалить</button><br>
+										</div>
+									</div>
 								</div>
-							</div>
+							</div>	
+							<button type="button" class="btn btn-primary" id="add_task">Добавить</button>
 						</div>
-					</div>	
-					<button type="button" class="btn btn-primary" id="add_target">Добавить</button>
-				</div>
-				
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col">
-							<h2>Задачи</h2>
-						</div>
-					</div>	
-					<div class="row">
-						<div class="col">
-							<div class="form-group tasks">
-								<div class="task">
-									  <label for="etask_name">Название:</label>
-									  <input type="text" name="etask_name" class="form-control task_name"><button type="button" class="btn btn-danger" onclick="return delete_task(this);">Удалить</button><br>
+					</div>
+					<div class="tab-pane fade" id="pills-competences" role="tabpanel" aria-labelledby="pills-competences-tab">
+						<div class="container-fluid editor_form_group">
+							<div class="row">
+								<div class="col">
+									<div class="form-group competences">
+										<div class="competences">
+											  <label for="ecompetence_name">Название:</label>
+											  <input type="text" name="ecompetence_name" class="form-control competence_name"><button type="button" class="btn btn-danger" onclick="return delete_competence(this);">Удалить</button><br>
+										</div>
+									</div>
 								</div>
-							</div>
+							</div>	
+							<button type="button" class="btn btn-primary" id="add_competence">Добавить</button>
 						</div>
-					</div>	
-					<button type="button" class="btn btn-primary" id="add_task">Добавить</button>
-				</div>
-				
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col">
-							<h2>Компетенции</h2>
-						</div>
-					</div>	
-					<div class="row">
-						<div class="col">
-							<div class="form-group competences">
-								<div class="competences">
-									  <label for="ecompetence_name">Название:</label>
-									  <input type="text" name="ecompetence_name" class="form-control competence_name"><button type="button" class="btn btn-danger" onclick="return delete_competence(this);">Удалить</button><br>
+					</div>
+					<div class="tab-pane fade" id="pills-themes" role="tabpanel" aria-labelledby="pills-themes-tab">
+						<div class="container-fluid editor_form_group">
+							<div class="row">
+								<div class="col">
+									<div class="form-group themes">
+										<div class="themes">
+											  <label for="etheme_name">Название:</label>
+											  <input type="text" name="etheme_name" class="form-control theme_name"><button type="button" class="btn btn-danger" onclick="return delete_theme(this);">Удалить</button><br>
+										</div>
+									</div>
 								</div>
-							</div>
+							</div>	
+							<button type="button" class="btn btn-primary" id="add_theme">Добавить</button>
 						</div>
-					</div>	
-					<button type="button" class="btn btn-primary" id="add_competence">Добавить</button>
-				</div>
-				
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col">
-							<h2>Темы</h2>
-						</div>
-					</div>	
-					<div class="row">
-						<div class="col">
-							<div class="form-group themes">
-								<div class="themes">
-									  <label for="etheme_name">Название:</label>
-									  <input type="text" name="etheme_name" class="form-control theme_name"><button type="button" class="btn btn-danger" onclick="return delete_theme(this);">Удалить</button><br>
+					</div>
+					<div class="tab-pane fade" id="pills-bibliographys" role="tabpanel" aria-labelledby="pills-bibliographys-tab">
+						<div class="container-fluid editor_form_group">
+							<div class="row">
+								<div class="col">
+									<div class="form-group bibliographys">
+										<div class="bibliographys">
+											  <label for="ebibliography_name">Название:</label>
+											  <input type="text" name="ebibliography_name" class="form-control bibliography_name"><button type="button" class="btn btn-danger" onclick="return delete_bibliography(this);">Удалить</button><br>
+										</div>
+									</div>
 								</div>
-							</div>
+							</div>	
+							<button type="button" class="btn btn-primary" id="add_bibliography">Добавить</button>
 						</div>
-					</div>	
-					<button type="button" class="btn btn-primary" id="add_theme">Добавить</button>
-				</div>
-				
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col">
-							<h2>Список литературы</h2>
-						</div>
-					</div>	
-					<div class="row">
-						<div class="col">
-							<div class="form-group bibliographys">
-								<div class="bibliographys">
-									  <label for="ebibliography_name">Название:</label>
-									  <input type="text" name="ebibliography_name" class="form-control bibliography_name"><button type="button" class="btn btn-danger" onclick="return delete_bibliography(this);">Удалить</button><br>
+					</div>
+					<div class="tab-pane fade" id="pills-softwares" role="tabpanel" aria-labelledby="pills-softwares-tab">
+						<div class="container-fluid editor_form_group">
+							<div class="row">
+								<div class="col">
+									<div class="form-group softwares">
+										<div class="softwares">
+											  <label for="esoftware_name">Название:</label>
+											  <input type="text" name="esoftware_name" class="form-control software_name"><button type="button" class="btn btn-danger" onclick="return delete_software(this);">Удалить</button><br>
+										</div>
+									</div>
 								</div>
-							</div>
+							</div>				
+							<button type="button" class="btn btn-primary" id="add_software">Добавить</button>
 						</div>
-					</div>	
-					<button type="button" class="btn btn-primary" id="add_bibliography">Добавить</button>
+					</div>
 				</div>
-				
-				<div class="container-fluid">
-					<div class="row">
-						<div class="col">
-							<h2>Необходимое ПО</h2>
-						</div>
-					</div>	
-					<div class="row">
-						<div class="col">
-							<div class="form-group softwares">
-								<div class="softwares">
-									  <label for="esoftware_name">Название:</label>
-									  <input type="text" name="esoftware_name" class="form-control software_name"><button type="button" class="btn btn-danger" onclick="return delete_software(this);">Удалить</button><br>
-								</div>
-							</div>
-						</div>
-					</div>	
-					<button type="button" class="btn btn-primary" id="add_software">Добавить</button>
-				</div>
-				
 				<div class="modal-footer">
-					<button class="btn btn-info id="DOCX">DOCX</button>
-					<button class="btn btn-primary id="edit_saver">Сохранить</button>
-					<button class="btn btn-warning id="deleteSubject">Удалить</button>
+					<button class="btn btn-info" id="docx">DOCX</button>
+					<button class="btn btn-primary" id="edit_saver">Сохранить</button>
+					<button class="btn btn-warning" id="deleteSubject">Удалить</button>
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Отменить</button>
 				</div>
 			</div>

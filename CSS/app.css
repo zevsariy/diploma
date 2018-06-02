@@ -1,3 +1,5 @@
+@import url("https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css");
+
 html {
 	background-color: #ffffff;
 }
@@ -67,10 +69,14 @@ height: 14px;
 	opacity: .2;
 }
 
-.dlec:hover , .dsem:hover , .dlabs:hover , .dself:hover , .dkwork:hover , .dkproject:hover, .dzuch_ed:hover, .dtype:hover {
+.dlec:hover , .dsem:hover , .dlabs:hover , .dself:hover , .dkwork:hover , .dkproject:hover, .dzuch_ed:hover, .dtype:hover, .dhours:hover {
 	background: #ffffff;
 	color: #000;
 	cursor: pointer;
+}
+
+.dzuch_ed, .dself {
+	margin-right:4px !important;
 }
 
 .hours_lab, .hours_sem, .hours_lec, .subject_name {
@@ -153,8 +159,9 @@ img {
 }
 
 .ostatok {
+	height: 32px;
 	flex-grow: 1;
-	padding: 10px;
+	//padding: 10px;
 	text-align: center;
 	color: black;
 	cursor: pointer;
@@ -217,7 +224,13 @@ img {
 .statSemester {
 	background-color: #fff;
 	vertical-align: top;
-	border: solid 1px #bdbcbc;
+	//border-right-color: #bdbcbc; /* Цвет линии справа */
+    //border-right-style: solid; /* Стиль линии */
+    //border-right-width: 1px; /* Толщина линии */
+    border-left-color: #bdbcbc; /* Цвет линии слева */
+    border-left-style: solid; /* Стиль линии */
+    border-left-width: 1px; /* Толщина линии */
+	//border: solid 1px #bdbcbc;
 	//border-left: none;
 	display: flex;
 	flex-direction: column;
@@ -449,7 +462,7 @@ img {
 }
 
 #elections, #eseminars, #elabs, #eselfwork {
-	width: 100px;
+	//width: 100px;
 }
 
 .pos-f-t ul li a {
@@ -474,10 +487,21 @@ img {
 
 .statSemester, .SumStatistics {
 	list-style-type: none;
+	//height:200px;
 }
 
-.dzuch_ed {
-	font-weight: bold;
+.statSemester .tile__name{
+	//height:150px;
+	border-bottom-width: 0px;
+}
+
+.statSemester, .SumStatistics {
+	list-style-type: none;
+}
+
+.statSemester .tile__name, .SumStatistics1 {
+	text-align:left!important;
+	padding:10px!important;
 }
 
 .stat_lists {
@@ -492,13 +516,14 @@ img {
     //
     //border-radius: 8px;
     //box-shadow: 2px 6px 6px rgba(0, 0, 0, 0.31);
-	height: 80px;
+	//height: 80px;
 }
 
 .allStatistics {
 	border: 1px solid #999;
-	width: 99.3% !important;
-	margin-left: 0.7% !important;
+	width: 99.2% !important;
+	margin-left: 0.8% !important;
+	font-size: 10px;
 }
 
 .col {
@@ -519,20 +544,18 @@ img {
   border-radius: 0;
 }
 
-.tab-pane {
-	height: 100px;
-}
-
 .nav.nav-pills li a {
-	color: #FFFFFF;
-	background-color: #6c757d;
-	margin-right:10px;
-	padding: 10px 10px 1px 10px;
+	color: #000000;
+    background-color: #d4d4d4;
+    margin-right: 10px;
+    padding: 10px 10px 1px 10px;
+    border: solid 1px #6d6d6d;
 }
 
 .nav.nav-pills li .active {
-	background-color: #FFFFFF;
-	color: #000000;
+	background-color: #ffffff;
+    color: #000000;
+    border: solid 1px #999;
 }
 
 .tab-pane a {
@@ -590,4 +613,38 @@ img {
 
 .printer-header {
 	display: none;
+}
+
+.editor_form_group {
+	margin-top: 32px;
+	//border: solid 1px #c3c3c3;
+	border-radius: 20px;
+}
+
+.editor_form_group .row {
+	//border: 1px solid #c3c3c3;
+    border-radius: 6px;
+}
+
+.editor_form_group .btn-primary {
+	margin: 0px 0px -1px -15px;
+}
+
+.editor_form_group .btn-danger {
+	margin: 10px 0px 7px 0px;
+}
+
+.theme, .competence {
+	border: solid 1px #999;
+    padding: 10px;
+	border-radius: 6px;
+	margin: 0px 0px 13px 0px;
+}
+
+.pad_link {
+	padding: 7px 10px 7px 10px !important;
+}
+
+.menu-middle{
+	margin: 5px 8px 0px 11px;
 }

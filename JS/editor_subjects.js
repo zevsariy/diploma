@@ -99,9 +99,9 @@
 		hourses +='<p class="dhours" title="Часов">'+hours+'</p>';
 		hourses +='<p class="dzuch_ed" title="Зачетных единиц">'+zuch_ed+'</p>';
 		hourses +='<p class="dlec" title="Лекции">'+lections+'</p>';
-		hourses +='<p class="dlabs" title="Лабораторные часы">'+labs+'</p>';
+		hourses +='<p class="dlabs" title="Лабораторная работа">'+labs+'</p>';
 		hourses +='<p class="dsem" title="Семинары">'+seminars+'</p>';
-		hourses +='<p class="dself" title="Самостоятельные часы">'+selfwork+'</p>';
+		hourses +='<p class="dself" title="Самостоятельная работа">'+selfwork+'</p>';
 		hourses +='<p class="dtype" title="зачет или экзамен"></p>';
 		hourses +='<p class="dkwork" title="Курсовая работа">КР</p>';
 		hourses +='<p class="dkproject" title="Курсовой проект">КП</p>';
@@ -239,7 +239,7 @@
 		}
 	}
 	
-	$("#DOCX").click(function() {
+	$("#docx").click(function() {
 		var id = Number($(editable_item).data("id"));
 		var win = window.open("/?module=subjects&action=savetodocx&id="+id, '_blank');
 		win.focus();
@@ -400,6 +400,8 @@
 	
 	function valid_position()
 	{
+		$("#modalSubjectTitle").text($("#ename").val())
+		
 		if($('#editorForm').is(':visible'))
 		{
 			ValidEditorForm();
@@ -560,7 +562,54 @@
 			var procLabs = ((statistica[index+1]['labs']/sumStatistics['labs'])*100).toFixed(2);
 			var procSelfworks = ((statistica[index+1]['selfwork']/sumStatistics['selfwork'])*100).toFixed(2);
 			
-			$(this).html("<div class='tile__name'>"+(index+1)+"</div><div class='statistics'><ul class='list-group list-group-flush'><li>Курсовых проектов: "+statistica[index+1]['kurs_project']+"</li><li>Курсовых работ: "+statistica[index+1]['kurs_work']+"</li><li>Зачетов: "+statistica[index+1]['zachets']+"</li><li>Экзаменов: "+statistica[index+1]['exams']+"</li><li>Зачетных единиц: "+statistica[index+1]['zuch_ed']+"</li><li>Часов суммарно: "+statistica[index+1]['hours']+"</li></ul></div>");
+			var tile__name = document.createElement('div');
+            tile__name.className = 'tile__name';
+            tile__name.innerHTML = '';
+			
+			//console.log(tile__name);
+			
+			var statistics = document.createElement('div');
+            statistics.className = 'statistics';
+            statistics.innerHTML = '';
+			
+			var list_group = document.createElement('ul');
+            list_group.className = 'list-group list-group-flush';
+            list_group.innerHTML = '';
+			
+			
+			if(statistica[index+1]['lections'] != 0) 
+				list_group.innerHTML = list_group.innerHTML + "<li>Лекции: "+statistica[index+1]['lections']+ " часов("+procLections+"%)</li>";
+			if(statistica[index+1]['seminars'] != 0) 
+				list_group.innerHTML = list_group.innerHTML + "<li>Семинары: "+statistica[index+1]['seminars']+ " часов("+procSeminars+"%)</li>";
+			if(statistica[index+1]['labs'] != 0) 
+				list_group.innerHTML = list_group.innerHTML + "<li>Лабораторная работа: "+statistica[index+1]['labs']+ " часов("+procLabs+"%)</li>";
+			if(statistica[index+1]['selfwork'] != 0) 
+				list_group.innerHTML = list_group.innerHTML + "<li>Самостоятельная работа: "+statistica[index+1]['selfwork']+ " часов("+procSelfworks+"%)</li>";
+			
+			
+			
+			
+			
+			if(statistica[index+1]['kurs_project'] != 0) 
+				list_group.innerHTML = list_group.innerHTML + "<li>Курсовых проектов: "+statistica[index+1]['kurs_project']+ "</li>";
+			
+			if(statistica[index+1]['kurs_work'] != 0) 
+				list_group.innerHTML = list_group.innerHTML + "<li>Курсовых работ: "+statistica[index+1]['kurs_work']+ "</li>";
+			
+			if(statistica[index+1]['zachets'] != 0) 
+				list_group.innerHTML = list_group.innerHTML + "<li>Зачетов: "+statistica[index+1]['zachets']+ "</li>";
+			
+			if(statistica[index+1]['exams'] != 0) 
+				list_group.innerHTML = list_group.innerHTML + "<li>Экзаменов: "+statistica[index+1]['exams']+ "</li>";
+			
+			if(statistica[index+1]['zuch_ed'] != 0) 
+				list_group.innerHTML = list_group.innerHTML + "<li>Зачетных единиц: "+statistica[index+1]['zuch_ed']+ "("+statistica[index+1]['hours']+" часов)</li>";
+			
+			statistics.innerHTML = $(list_group).html();
+			tile__name.innerHTML = $(statistics).html();
+			$(this).html(tile__name);
+			
+			//$(this).html("<div class='tile__name'>"+(index+1)+"</div><div class='statistics'><ul class='list-group list-group-flush'><li>Курсовых проектов: "+statistica[index+1]['kurs_project']+} "</li><li>Курсовых работ: "+statistica[index+1]['kurs_work']+"</li><li>Зачетов: "+statistica[index+1]['zachets']+"</li><li>Экзаменов: "+statistica[index+1]['exams']+"</li><li>Зачетных единиц: "+statistica[index+1]['zuch_ed']+"</li><li>Часов суммарно: "+statistica[index+1]['hours']+"</li></ul></div>");
 		});
 		
 		
@@ -569,18 +618,34 @@
 		$(".SumStatistics3").html("");
 		$(".SumStatistics4").html("");
 		
-		$(".SumStatistics1").append("<li>Суммарная статистика</li>");
-		$(".SumStatistics1").append("<li>Лекции: "+sumStatistics['lections']+"</li>");
-		$(".SumStatistics1").append("<li>Семинары: "+sumStatistics['seminars']+"</li>");
-		$(".SumStatistics2").append("<li>Лабораторные работы: "+sumStatistics['labs']+"</li>");
-		$(".SumStatistics2").append("<li>Самостоятельные работы: "+sumStatistics['selfwork']+"</li>");
-		$(".SumStatistics2").append("<li>Курсовые проекты: "+sumStatistics['kurs_project']+"</li>");
+		if(Number(sumStatistics['lections']) !=0)
+			$(".SumStatistics1").append("<li>Лекции: "+sumStatistics['lections']+"</li>");
 		
-		$(".SumStatistics3").append("<li>Курсовые работы: "+sumStatistics['kurs_work']+"</li>");
-		$(".SumStatistics3").append("<li>Зачеты: "+sumStatistics['zachets']+"</li>");
-		$(".SumStatistics3").append("<li>Экзамены: "+sumStatistics['exams']+"</li>");
-		$(".SumStatistics4").append("<li>Зачетные единицы: "+sumStatistics['zuch_ed']+"</li>");
-		$(".SumStatistics4").append("<li>Часы суммарно:  "+sumStatistics['hours']+"</li>");
+		if(Number(sumStatistics['seminars']) !=0)
+			$(".SumStatistics1").append("<li>Семинары: "+sumStatistics['seminars']+"</li>");
+		
+		if(Number(sumStatistics['labs']) !=0)
+			$(".SumStatistics1").append("<li>Лабораторная работа: "+sumStatistics['labs']+"</li>");
+		
+		if(Number(sumStatistics['selfwork']) !=0)
+			$(".SumStatistics1").append("<li>Самостоятельная работа: "+sumStatistics['selfwork']+"</li>");
+		
+		if(Number(sumStatistics['kurs_project']) !=0)
+			$(".SumStatistics1").append("<li>Курсовые проекты: "+sumStatistics['kurs_project']+"</li>");
+		
+			
+		if(Number(sumStatistics['kurs_work']) !=0)
+			$(".SumStatistics1").append("<li>Курсовые работы: "+sumStatistics['kurs_work']+"</li>");
+		
+		if(Number(sumStatistics['zachets']) !=0)
+			$(".SumStatistics1").append("<li>Зачеты: "+sumStatistics['zachets']+"</li>");
+		
+		if(Number(sumStatistics['exams']) !=0)
+			$(".SumStatistics1").append("<li>Экзамены: "+sumStatistics['exams']+"</li>");
+		
+		if(Number(sumStatistics['zuch_ed']) !=0)
+			$(".SumStatistics1").append("<li>Зачетные единицы: "+sumStatistics['zuch_ed']+"("+sumStatistics['hours']+" часов)</li>");
+		
 	}
 	
 	
@@ -602,6 +667,7 @@
 	function editerka()
 	{
 		$(".subject").dblclick(function (e) {
+			$("#pills-main-tab").click();
 			$("#editorForm").modal("show")
 			$("#ehours").val($(this).data("hours"));
 			$("#ename").val($(this).data("name"));
@@ -836,7 +902,15 @@ $("#add_target").click(function (e) {
 });
 
 function AddTarget(value) {
-	$(".targets").append('<div class="target"><label for="etarget_name">Название:</label><input type="text" name="etarget_name" class="form-control target_name" value="'+value+'"><button type="button" class="btn btn-danger" onclick="return delete_target(this);">Удалить</button><br></div>');
+	$(".targets").append(`<div class="target">
+	
+		<div class="input-group mb-3">
+			<input type="text" name="etarget_name" class="form-control target_name" placeholder="" aria-label="" aria-describedby="basic-addon1" value="`+value+`">
+			<div class="input-group-append">
+				<button class="btn btn-outline-danger" type="button" onclick="return delete_target(this);">Удалить</button>
+			</div>
+		</div>
+	</div>`);
 };
 
 function CleanTargets() {
@@ -845,8 +919,7 @@ function CleanTargets() {
 
 
 function delete_target(element) {
-	console.log($(element));
-		$(element).parent().remove();
+	$(element).parent().parent().parent().remove();
 };
 
 
@@ -856,12 +929,18 @@ $("#add_task").click(function (e) {
 });
 
 function delete_task(element) {
-	console.log($(element));
-		$(element).parent().remove();
+	$(element).parent().parent().parent().remove();
 };
 
 function AddTask(value) {
-	$(".tasks").append('<div class="task"><label for="etask_name">Название:</label><input type="text" name="etask_name" class="form-control task_name" value="'+value+'"><button type="button" class="btn btn-danger" onclick="return delete_task(this);">Удалить</button><br></div>');
+	$(".tasks").append(`<div class="task">
+		<div class="input-group mb-3">
+			<input type="text" name="etask_name" class="form-control task_name" placeholder="" aria-label="" aria-describedby="basic-addon1" value="`+value+`">
+			<div class="input-group-append">
+				<button class="btn btn-outline-danger" type="button" onclick="return delete_task(this);">Удалить</button>
+			</div>
+		</div>
+	</div>`);
 };
 
 function CleanTasks() {
@@ -879,7 +958,23 @@ function delete_competence(element) {
 };
 
 function AddCompetence(competence_code,competence_name,competence_knowledges,competence_crafts,competence_skills) {
-	$(".competences").append('<div class="competence"><label for="ecompetence_code">Код:</label><input type="text" name="ecompetence_code" class="form-control competence_code" value="'+competence_code+'"><label for="ecompetence_name">Название:</label><input type="text" name="ecompetence_name" class="form-control competence_name" value="'+competence_name+'"><label for="ecompetence_knowledges">Знания:</label><input type="text" name="ecompetence_knowledges" class="form-control competence_knowledges" value="'+competence_knowledges+'"><label for="ecompetence_crafts">Умения:</label><input type="text" name="ecompetence_crafts" class="form-control competence_crafts" value="'+competence_crafts+'"><label for="ecompetence_skills">Навыки:</label><input type="text" name="ecompetence_skills" class="form-control competence_skills" value="'+competence_skills+'"><button type="button" class="btn btn-danger" onclick="return delete_task(this);">Удалить</button><br></div>');
+	$(".competences").append(`<div class="competence">
+	<div class="row">
+	<div class="col-sm">
+	<label for="ecompetence_code">Код:</label>
+	<input type="text" name="ecompetence_code" class="form-control competence_code" value="`+competence_code+`">
+	</div>
+	<div class="col-sm">
+	<label for="ecompetence_name">Название:</label>
+	<input type="text" name="ecompetence_name" class="form-control competence_name" value="`+competence_name+`">
+	</div>
+	</div>
+	<label for="ecompetence_knowledges">Знания:</label>
+	<input type="text" name="ecompetence_knowledges" class="form-control competence_knowledges" value="`+competence_knowledges+`">
+	<label for="ecompetence_crafts">Умения:</label><input type="text" name="ecompetence_crafts" class="form-control competence_crafts" value="`+competence_crafts+`">
+	<label for="ecompetence_skills">Навыки:</label><input type="text" name="ecompetence_skills" class="form-control competence_skills" value="`+competence_skills+`">
+	<button type="button" class="btn btn-danger" onclick="return delete_task(this);">Удалить</button><br>
+	</div>`);
 };
 
 function CleanCompetences() {
@@ -935,12 +1030,19 @@ $("#add_bibliography").click(function (e) {
 });
 
 function delete_bibliography(element) {
-	console.log($(element));
-		$(element).parent().remove();
+	$(element).parent().parent().parent().remove();
 };
 
 function AddBibliography(value) {
-	$(".bibliographys").append('<div class="bibliography"><label for="ebibliography_name">Название:</label><input type="text" name="ebibliography_name" class="form-control bibliography_name" value="'+value+'"><button type="button" class="btn btn-danger" onclick="return delete_bibliography(this);">Удалить</button><br></div>');
+	
+	$(".bibliographys").append(`<div class="bibliography">
+		<div class="input-group mb-3">
+			<input type="text" name="ebibliography_name" class="form-control bibliography_name" placeholder="" aria-label="" aria-describedby="basic-addon1" value="`+value+`">
+			<div class="input-group-append">
+				<button class="btn btn-outline-danger" type="button" onclick="return delete_bibliography(this);">Удалить</button>
+			</div>
+		</div>
+	</div>`);
 };
 
 function CleanBibliographys() {
@@ -953,12 +1055,18 @@ $("#add_software").click(function (e) {
 });
 
 function delete_software(element) {
-	console.log($(element));
-		$(element).parent().remove();
+	$(element).parent().parent().parent().remove();
 };
 
 function AddSoftware(value) {
-	$(".softwares").append('<div class="software"><label for="esoftware_name">Название:</label><input type="text" name="esoftware_name" class="form-control software_name" value="'+value+'"><button type="button" class="btn btn-danger" onclick="return delete_task(this);">Удалить</button><br></div>');
+	$(".softwares").append(`<div class="software">
+		<div class="input-group mb-3">
+			<input type="text" name="esoftware_name" class="form-control software_name" placeholder="" aria-label="" aria-describedby="basic-addon1" value="`+value+`">
+			<div class="input-group-append">
+				<button class="btn btn-outline-danger" type="button" onclick="return delete_software(this);">Удалить</button>
+			</div>
+		</div>
+	</div>`);
 };
 
 function CleanSoftwares() {

@@ -23,7 +23,7 @@ class Subjects
 			
 			if(strlen($subject['id'])==0 && $subject['delete']!='1') 
 			{
-				$stmt = $DB->prepare("INSERT INTO subjects (name, type, plan_id, position, zuch_ed, semester, lections, seminars, labs, selfwork, part, kurs_project, kurs_work, bg_color, text_color, targets, tasks) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+				$stmt = $DB->prepare("INSERT INTO subjects (name, type, plan_id, position, zuch_ed, semester, lections, seminars, labs, selfwork, part, kurs_project, kurs_work, bg_color, text_color, targets, tasks, competences, themes, bibliographys, softwares) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 				$stmt->bind_param('ssissssssssssssssssss', $subject['name'], $subject['type'],$plan_id,$subject['position'],$subject['zuch_ed'],$subject['semester'],$subject['lections'],$subject['seminars'],$subject['labs'],$subject['selfwork'],$subject['part'],$subject['kurs_project'],$subject['kurs_work'],$subject['bg_color'],$subject['text_color'],$subject['targets'],$subject['tasks'],$subject['competences'],$subject['themes'],$subject['bibliographys'],$subject['softwares']);
 				echo "";
 			}

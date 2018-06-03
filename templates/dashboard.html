@@ -126,7 +126,7 @@
 <!-- ./wrapper -->
 
 
-<!-- Modal -->
+<!-- Modal Plan-->
 <div class="modal fade" id="addNewPlanModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -160,6 +160,38 @@
 			<div class="form-group">
 				<label for="spec_id">Специальность</label>
 				<input type="text" class="form-control" name="spec_id">
+			</div>
+			<button type="submit" class="btn btn-primary">Создать</button>
+		</form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Dialog-->
+<div class="modal fade" id="addNewDialogModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Новый диалог</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">	  
+
+		<form method="get" action="/index.php">
+			<div class="form-group">
+				<input type="hidden" name="module" value="dialogs">
+				<input type="hidden" name="action" value="create">
+				<label for="name">Название:</label>
+				<input type="text" class="form-control" name="name">
+			</div>
+			<div class="form-group">
+				<label for="guests[]">Пригласить:</label>
+				<select multiple size="10" name="guests[]">
+					{{{guests_selector}}}
+				</select>
 			</div>
 			<button type="submit" class="btn btn-primary">Создать</button>
 		</form>
@@ -205,5 +237,7 @@
 <script src="/dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="/dist/js/demo.js"></script>
+
+<script src="/JS/dashboard_main.js"></script>
 </body>
 </html>

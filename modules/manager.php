@@ -41,6 +41,7 @@ class Manager
 
 	public static function Render()
 	{
+		Auth::SaveAction();
 		if(self::$module == "plan_editor")
 		{
 			if(self::$action == "edit")
@@ -115,13 +116,39 @@ class Manager
 			self::$content = UserProfile::GetToContent(self::$content);
 			if(self::$action == "view")
 			{
-				self::$content=str_replace("{{{dashboard_name}}}", "Таблица образовательных программ", self::$content);
+				self::$content=str_replace("{{{dashboard_name}}}", 'Образовательные программы <button type="button" data-toggle="modal" data-target="#addNewPlanModal" class="btn">+</button>', self::$content);
 				self::$content=str_replace("{{{content}}}", Plans::GetTable(), self::$content);
 			}
 			else if(self::$action == "add_new")
 			{
 				Plans::addNew();
 				exit;
+			}
+		}
+		else if(self::$module == "dialogs")
+		{	
+			self::$content=file_get_contents("./templates/dashboard.html");
+			self::$content = Menu::GetToContent(self::$content);
+			self::$content = UserProfile::GetToContent(self::$content);
+			if(self::$action == "view")
+			{
+				self::$content=str_replace("{{{dashboard_name}}}", 'Диалоги <button type="button" data-toggle="modal" data-target="#addNewDialogModal" class="btn">+</button>', self::$content);
+				self::$content=str_replace("{{{content}}}", Dialogs::GetList(), self::$content);
+				self::$content=str_replace("{{{guests_selector}}}", Dialogs::GetGuestsSelector(), self::$content);
+			}
+			else if(self::$action == "create")
+			{
+				Dialogs::Create();
+				exit;
+			}
+			else if(self::$action == "open")
+			{
+				self::$content=str_replace("{{{dashboard_name}}}", 'Диалог', self::$content);
+				self::$content=str_replace("{{{content}}}", Dialogs::Open(self::$id), self::$content);
+			}
+			else if(self::$action == "send")
+			{
+				Dialogs::Send();
 			}
 		}
 		else if(self::$module == "auth")
@@ -234,10 +261,22 @@ class Manager
 			header('Cache-Control: max-age=0');
 			$_doc->saveAs('php://output');
 		}
+		else if(self::$module == "access")
+		{
+			if(self::$action == "denied")
+			{
+				self::$content=file_get_contents("./templates/dashboard.html");
+				self::$content=str_replace("{{{content}}}", "<a href='/'>Вернуться на главную страницу</a>", self::$content);
+				self::$content = Menu::GetToContent(self::$content);
+				self::$content = UserProfile::GetToContent(self::$content);
+				self::$content=str_replace("{{{dashboard_name}}}", "Доступ запрещен", self::$content);
+			}
+		}
 		else
 		{
 			self::$content=file_get_contents("./templates/404.html");
 		}
+		Auth::Access();
 		echo self::$content;
 	}
 	

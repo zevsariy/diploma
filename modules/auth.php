@@ -4,6 +4,7 @@ class Auth
 {
 	public static $token;
 	public static $userRole;
+	public static $userId;
 	
 	public static function GetToken($login, $password)
 	{
@@ -16,6 +17,7 @@ class Auth
 		while ($row = $result->fetch_assoc())
 		{
 			$user_id=$row['id'];
+			self::$userId = $user_id;
 		}
 		if(!$user_id==false)
 		{
@@ -41,6 +43,7 @@ class Auth
 		self::$userRole = 0;
 		while ($row = $result->fetch_assoc())
 		{
+			//self::$userId=$row['user_id'];
 			self::$userRole=$row['role'];
 		}
 		$stmt->close(); 
@@ -71,6 +74,7 @@ class Auth
 		else
 		{
 			self::$token = $token;
+			self::$userId = $user_id;
 			self::GetUserRole();
 			return true;
 		}
@@ -83,5 +87,47 @@ class Auth
 		header("Location:/index.php"); 
 	}
 	
+	public static function SaveAction()
+	{
+		global $DB;
+		$stmt = $DB->prepare("INSERT INTO actions (user_id, url, ip) VALUES (?,?,?)");
+		$stmt->bind_param('iss', self::$userId, $_SERVER['REQUEST_URI'], $_SERVER['REMOTE_ADDR']);
+		$stmt->execute();
+		return self::$token;
+	}
+	
+	public static function Access()
+	{
+		global $DB;
+		$access = 1;
+		if(Manager::$module == "dialogs" && Manager::$action == "open")
+		{
+			$user_id = Auth::$userId;
+			$type = 'dialog';
+			$target_id = Manager::$id;
+			$access = 0;
+		}
+		
+		
+		if($access==0)
+		{
+			$stmt = $DB->prepare("SELECT * FROM permissions WHERE user_id=? AND type=? AND target_id=?");
+			$stmt->bind_param('isi', $user_id, $type, $target_id);
+			
+			$stmt->execute();
+			
+			$result = $stmt->get_result();
+			
+			while ($row = $result->fetch_assoc())
+			{
+				
+				$access=$row['access'];
+			}
+			$stmt->close();
+		}
+		
+		if($access != 1)
+			header("Location:/index.php?module=access&action=denied");
+	}
 }
 ?>

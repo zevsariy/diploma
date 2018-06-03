@@ -9,17 +9,16 @@ class Plans
 		//$stmt->bind_param('ss', $login, md5($password));
 		$stmt->execute();
 		$result = $stmt->get_result();
-		$temp = '<button type="button" data-toggle="modal" data-target="#addNewPlanModal" class="btn btn-light">Создать новый</button>
-		<table class="table table-bordered"> 
-		  <thead>
-			<tr>
-			  <th scope="col">ИД</th>
-			  <th scope="col">Название</th>
-			  <th scope="col">Год набора</th>
-			  <th scope="col">Специальность</th>
-			</tr>
-		  </thead>
-		  <tbody>';
+		$temp = '<table class="table table-bordered"> 
+				  <thead>
+					<tr>
+					  <th scope="col">ИД</th>
+					  <th scope="col">Название</th>
+					  <th scope="col">Год набора</th>
+					  <th scope="col">Специальность</th>
+					</tr>
+				  </thead>
+				  <tbody>';
 
     
 		while ($row = $result->fetch_assoc())

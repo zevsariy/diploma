@@ -373,17 +373,13 @@
 	});
 	
 	$("#HideIcons").click(function() {
-		if($(this).text() == "Скрыть иконки")
+		if(!$(this).is(':checked'))
 		{
-			//$(this).text("Показать иконки")
-			$(this).html('Показать иконки');
 			$(".hours_subject").hide();
 			$(".subject_name").attr('style', 'width: 100% !important; font-size: 14px !important');
 		}
 		else
 		{
-			//$(this).text("Скрыть иконки")
-			$(this).html('Скрыть иконки');
 			$(".hours_subject").show();
 			$(".subject_name").attr('style', 'width: 40% !important; font-size: 10px !important');
 		}

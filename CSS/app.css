@@ -646,5 +646,13 @@ img {
 }
 
 .menu-middle{
-	margin: 5px 8px 0px 11px;
+	margin: -1px 10px 0px 0px;
+}
+
+#HideIcons {
+	vertical-align: middle;
+}
+
+.HideIcons {
+	margin: -3px 0px 0px 0px;
 }

@@ -13058,3 +13058,7 @@ a.text-muted:hover {
 	float: right;
 	width: 90%;
 }
+
+.pretty_fio {
+	margin: -11px 0px 0px 0px;
+}

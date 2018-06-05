@@ -271,6 +271,14 @@ class Manager
 				self::$content = UserProfile::GetToContent(self::$content);
 				self::$content=str_replace("{{{dashboard_name}}}", "Доступ запрещен", self::$content);
 			}
+			else if(self::$action == "log")
+			{
+				self::$content=file_get_contents("./templates/dashboard.html");
+				self::$content=str_replace("{{{content}}}", "<a href='/'>Вернуться на главную страницу</a>", self::$content);
+				self::$content = Menu::GetToContent(self::$content);
+				self::$content = UserProfile::GetToContent(self::$content);
+				self::$content=str_replace("{{{dashboard_name}}}", "Лог доступа", self::$content);
+			}
 		}
 		else
 		{

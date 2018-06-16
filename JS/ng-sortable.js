@@ -1,7 +1,3 @@
-/**
- * @author RubaXa <trash@rubaxa.org>
- * @licence MIT
- */
 (function (factory) {
 	'use strict';
 

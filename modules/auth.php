@@ -129,5 +129,36 @@ class Auth
 		if($access != 1)
 			header("Location:/index.php?module=access&action=denied");
 	}
+	
+	public static function GetLog()
+	{
+		global $DB;
+		$stmt = $DB->prepare("SELECT a.date as date, (SELECT CONCAT(last_name, ' ', first_name, ' ', second_name) FROM profiles WHERE user_id=a.user_id) as user_name, a.url as url, a.ip as ip FROM actions a ORDER BY date DESC");
+		//$stmt->bind_param('ss', $curDate, $token);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		
+		$temp = '<table class="table table-hover table-secondary"> 
+				  <thead>
+					<tr>
+					  <th scope="col">Дата</th>
+					  <th scope="col">Пользователь</th>
+					  <th scope="col">IP</th>
+					  <th scope="col">URL</th>
+					</tr>
+				  </thead>
+				  <tbody>';
+		while ($row = $result->fetch_assoc())
+		{
+			$temp.='<tr>
+				  <td>'.$row['date'].'</td>
+				  <td>'.$row['user_name'].'</td>
+				  <td>'.$row['ip'].'</td>
+				  <td>'.$row['url'].'</td>
+				</tr>';
+		}
+		$temp .= '</tbody></table>';
+		return $temp;
+	}
 }
 ?>

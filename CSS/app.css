@@ -656,3 +656,15 @@ img {
 .HideIcons {
 	margin: -3px 0px 0px 0px;
 }
+
+.navbar-light .navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.98)!important;
+}
+
+.nav-link:hover {
+	cursor: pointer;
+}
+
+.tile__list {
+	margin-bottom: 2px;
+}

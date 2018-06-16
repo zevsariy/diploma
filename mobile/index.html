@@ -1,0 +1,110 @@
+<html>
+    <head>
+		<meta charset="utf-8">
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, viewport-fit=cover">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+		<script src="/JS/jquery-3.3.1.min.js"></script>
+		<script src="JS/main.js"></script>
+        <link rel="stylesheet" href="/CSS/bootstrap.min.css">
+		<script src="/JS/bootstrap.min.js"></script>
+        <title>Reader</title>
+    </head>
+    <body>
+<body>
+		<div class="container-fluid">
+
+			<ul class="nav nav-tabs" id="myTab" role="tablist">
+			
+				  <li class="nav-item">
+					<a class="nav-link active" id="hello-tab" data-toggle="tab" href="#hello" role="tab" aria-controls="hello" aria-selected="true">Приветствие</a>
+				  </li>
+				  
+				  <li class="nav-item">
+					<a class="nav-link" id="networkerror-tab" data-toggle="tab" href="#networkerror" role="tab" aria-controls="networkerror" aria-selected="false">Ошибка подключения</a>
+				  </li>
+				  
+				  <li class="nav-item">
+					<a class="nav-link" id="auth-tab" data-toggle="tab" href="#auth" role="tab" aria-controls="auth" aria-selected="false">Авторизация</a>
+				  </li>
+				  
+				  <li class="nav-item">
+					<a class="nav-link" id="dashboard-tab" data-toggle="tab" href="#dashboard" role="tab" aria-controls="dashboard" aria-selected="false">Панель администратора</a>
+				  </li>
+				  
+				  <li class="nav-item">
+					<a class="nav-link" id="dashboard-tab" data-toggle="tab" href="#dashboard" role="tab" aria-controls="dashboard" aria-selected="false">Панель администратора</a>
+				  </li>
+				  
+			</ul>
+			
+			<div class="tab-content" id="myTabContent">
+			
+				<div class="tab-pane fade show active" id="hello" role="tabpanel" aria-labelledby="hello-tab">
+					<h1 class="h3 mb-3 font-weight-normal">Редактор ОП 0.1b</h1>
+					<button onclick="InternetTest();">Test</button>
+				</div>
+				
+				<div class="tab-pane fade" id="networkerror" role="tabpanel" aria-labelledby="networkerror-tab">
+					<h1 class="h3 mb-3 font-weight-normal">Отсутствует покдключение к сети интернет.</h1>
+				</div>
+				
+				<div class="tab-pane fade" id="auth" role="tabpanel" aria-labelledby="auth-tab">
+					<form class="form-signin">
+						<h1 class="h3 mb-3 font-weight-normal">Пожалуйста, авторизуйтесь.</h1>
+						<label for="inputLogin" class="sr-only">Логин</label>
+						<input type="text" id="inputLogin" class="form-control" placeholder="Ваш логин" required autofocus>
+						<label for="inputPassword" class="sr-only">Пароль</label>
+						<input type="password" id="inputPassword" class="form-control" placeholder="Пароль" required>
+						<button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+					</form>
+				</div>
+				
+				<div class="tab-pane fade" id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+					<header>
+					  <!-- Fixed navbar -->
+					  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+						  <span class="navbar-toggler-icon"></span>
+						</button>
+						<div class="collapse navbar-collapse" id="navbarCollapse">
+						  <ul class="navbar-nav mr-auto">
+							<li class="nav-item active">
+							  <a class="nav-link" href="#">Диалоги</a>
+							</li>
+							<li class="nav-item">
+							  <a class="nav-link" href="#">Выйти</a>
+							</li>
+						  </ul>
+						</div>
+					  </nav>
+					</header>
+
+					<!-- Begin page content -->
+					<main role="main" class="container">
+						<br>
+						<div class="card bg-light">
+						  <div class="card-header">Имя диалога</div>
+						  <div class="card-body">Последнее сообщение</div> 
+						</div>
+						<br>
+						<div class="card bg-light">
+						  <div class="card-header">Имя диалога</div>
+						  <div class="card-body">Последнее сообщение</div> 
+						</div>
+						<br>
+						<div class="card bg-light">
+						  <div class="card-header">Имя диалога</div>
+						  <div class="card-body">Последнее сообщение</div> 
+						</div>
+					</main>
+				</div>
+				
+				
+			</div>
+		</div>
+
+    </body>
+<script type="text/javascript" src="JS/index.js"></script>
+</html>

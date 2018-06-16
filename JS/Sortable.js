@@ -1,9 +1,3 @@
-/**!
- * Sortable
- * @author	RubaXa   <trash@rubaxa.org>
- * @license MIT
- */
-
 (function sortableModule(factory) {
 	"use strict";
 

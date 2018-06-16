@@ -6,28 +6,23 @@ class Dialogs
 	{
 		$userId = Auth::$userId;
 		global $DB;
-		$stmt = $DB->prepare("SELECT id, name FROM dialogs WHERE id IN (SELECT target_id FROM permissions WHERE type='dialog' AND access='1' AND user_id=?)");
+		$stmt = $DB->prepare("SELECT d.id as id, d.name as name, (SELECT text FROM messages WHERE dialog_id=d.id ORDER BY id DESC LIMIT 1) as message FROM dialogs d WHERE d.id IN (SELECT target_id FROM permissions WHERE type='dialog' AND access='1' AND user_id=?)");
 		$stmt->bind_param('i', $userId);
 		$stmt->execute();
 		$result = $stmt->get_result();
-		$temp = '<table class="table table-hover"> 
-				  <thead>
-					<tr>
-					  <th scope="col">ИД</th>
-					  <th scope="col">Название</th>
-					</tr>
-				  </thead>
-				  <tbody>';
+		$temp = '';
 
     
 		while ($row = $result->fetch_assoc())
 		{
-			$temp .='<tr onclick="window.location.href=`/?module=dialogs&action=open&id='.$row['id'].'`; return false;">
-				  <td>'.$row['id'].'</td>
-				  <td>'.$row['name'].'</td>
-				</tr>';
+			$temp .='<div class="callout callout-dark callout-hover" onclick="window.location.href=`/?module=dialogs&action=open&id='.$row['id'].'`; return false;">
+                  <h5>'.$row['name'].'</h5>
+
+                  <p>'.$row['message'].'</p>
+                </div>
+			';
 		}
-		$temp .= '</tbody></table>';
+		$temp .= '';
 		
 		return $temp;
 	}

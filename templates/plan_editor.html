@@ -33,7 +33,7 @@
 <body>
 
 
-				<nav class="navbar navbar-expand-lg navbar-light bg-light">
+				<nav class="navbar navbar-expand-lg navbar-light bg-dark">
 				  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				  </button>
@@ -48,7 +48,7 @@
 					  <li class="nav-item"><p class="nav-link menu-middle" id="reset"><i class="fa fa-refresh"></i> Сброс</p></li>
 					  <li class="nav-item"><p class="nav-link menu-middle" id=""><input id="HideIcons" type="checkbox" checked><label for="HideIcons" class="HideIcons">Иконки</label></p></li>				  
 					</ul>
-					<img src="/CSS/images/polylogo-black.png" class="polylogo">
+					<img src="/CSS/images/polylogo.png" class="polylogo">
 				  </div>
 				</nav>
 				
@@ -96,59 +96,13 @@
 		</div>
 	</div>
 	
-	
-<div class="test_sortables">
-	<div class="sort_item">
-	<button type="button" data-id="0" class="btn btn-danger" onclick="return sort_down(this);">Down1</button>
-	</div>
-	<div class="sort_item">
-	<button type="button" data-id="1" class="btn btn-danger" onclick="return sort_down(this);">Down2</button>
-	</div>
-	<div class="sort_item">
-	<button type="button" data-id="2" class="btn btn-danger" onclick="return sort_down(this);">Down3</button>
-	</div>
-	<div class="sort_item">
-	<button type="button" data-id="3" class="btn btn-danger" onclick="return sort_down(this);">Down4</button>
-	</div>
-</div>
-
-<script>
-
-jQuery.fn.swap = function(b) {
-    b = jQuery(b)[0];
-    var a = this[0],
-        a2 = a.cloneNode(true),
-        b2 = b.cloneNode(true),
-        stack = this;
-
-    a.parentNode.replaceChild(b2, a);
-    b.parentNode.replaceChild(a2, b);
-
-    stack[0] = a2;
-    return this.pushStack( stack );
-};
-
-function sort_down(item) {
-	var id = $(item).data('id');
-	console.log("selected_id: " + $(this).data('id'));
-	$( ".sort_item" ).each(function( index ) 
-	{
-		console.log("each_id: " + $(this).data('id'));
-		if(index == id)
-		{
-			$($( ".sort_item" )[index]).swap($($( ".sort_item" )[index + 1]));
-			console.log("yes_id: " + $(this).data('id'));
-		}
-	}
-	);
-	
-	$( ".sort_item" ).each(function( index ) 
-	{
-		$(this).data('id', index)
-	}
-	);
-}
-</script>
+<footer class="main-footer bg-dark">
+    <strong>Copyright &copy; 2018 <a href="http://2tsy.ru">S.Y.Tkachenko</a>.</strong>
+    Информация, представленная на сайте, не является публичной и доступна только авторизованнымс пользователям.
+    <div class="float-right d-none d-sm-inline-block">
+      <b>Version</b> 0.1b
+    </div>
+</footer>
 
 	<!-- Modal -->
 <div class="modal fade" id="editorForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

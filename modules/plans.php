@@ -9,7 +9,7 @@ class Plans
 		//$stmt->bind_param('ss', $login, md5($password));
 		$stmt->execute();
 		$result = $stmt->get_result();
-		$temp = '<table class="table table-hover"> 
+		$temp = '<table class="table table-hover table-secondary"> 
 				  <thead>
 					<tr>
 					  <th scope="col">ИД</th>

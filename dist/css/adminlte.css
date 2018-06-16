@@ -13062,3 +13062,16 @@ a.text-muted:hover {
 .pretty_fio {
 	margin: -11px 0px 0px 0px;
 }
+
+.callout-hover {
+	background-color: #EEE;
+	border-left: 5px solid #6b6b6b;
+}
+
+.callout-hover:hover {
+	background-color: #fff;
+}
+
+.table-hover {
+	border-radius: 7px;
+}
